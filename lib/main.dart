@@ -1,11 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:run_my_lockdown/blocs/auth/authentication/bloc/authentication_bloc.dart';
+import 'package:run_my_lockdown/blocs/simple_bloc_delegate.dart';
+import 'package:run_my_lockdown/repositories/user_repository/user_repository.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
+  final UserRepository userRepository = UserRepository();
+  runApp(
+    BlocProvider<AuthenticationBloc>(
+      create: (context) => AuthenticationBloc(userRepository: userRepository)
+        ..add(AppStarted()),
+      child: RunMyLockdownApp(
+        userRepository: userRepository,
+      ),
+    )
+  );
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class RunMyLockdownApp extends StatelessWidget {
+  final UserRepository _userRepository;
+
+  const RunMyLockdownApp({@required UserRepository userRepository})
+    : assert(userRepository != null),
+      _userRepository = userRepository;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
