@@ -18,7 +18,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       _userRepository = userRepository;
 
   @override
-  AuthenticationState get initialState => Loading();
+  AuthenticationState get initialState => Uninisialised();
 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
@@ -52,6 +52,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
 
   Stream<AuthenticationState> _mapLoggedOutToState(LoggedOut event) async* {
     yield Unauthenticated();
+    _userRepository.signOut();
   }
 
 }
