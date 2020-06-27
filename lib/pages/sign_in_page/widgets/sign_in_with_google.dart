@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInGoogleButton extends StatelessWidget {
   const SignInGoogleButton({
@@ -21,21 +21,27 @@ class SignInGoogleButton extends StatelessWidget {
           child: NeumorphicButton(
             onPressed: signInWithGoogle,
             style: NeumorphicStyle(
-              shape: NeumorphicShape.concave
+              shape: NeumorphicShape.flat,
             ),
             child: Stack(
               children: <Widget>[
                 Positioned(
                   height: 30,
                   left: 10,
-                  child: Icon(
-                    FontAwesomeIcons.google
+                  child: Container(
+                    child: Image.asset(
+                      'assets/google_logo/g-logo.png'
+                    ),
                   )
                 ),
                 Center(
                   child: Text(
                     'Sign In With Google',
-                    style: NeumorphicTheme.of(context).current.textTheme.subtitle1,
+                    style: TextStyle(
+                      fontFamily: GoogleFonts.dosis().fontFamily,
+                      color: Colors.black,
+                      fontSize: 16
+                    ),
                   ),
                 )
               ],

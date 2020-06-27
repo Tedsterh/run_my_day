@@ -36,7 +36,7 @@ class RunMyLockdownApp extends StatelessWidget {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Neumorphic App',
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       theme: NeumorphicThemeData(
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
@@ -50,7 +50,19 @@ class RunMyLockdownApp extends StatelessWidget {
             ),
             headline4: TextStyle(
               color: Color(0xFF7D9DFD)
-            )
+            ),
+            bodyText1: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            bodyText2: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            subtitle1: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            subtitle2: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
           ),
         )
       ),
@@ -58,8 +70,8 @@ class RunMyLockdownApp extends StatelessWidget {
         baseColor: Color(0xFF3E3E3E),
         lightSource: LightSource.topLeft,
         accentColor: Color(0xFF7D9DFD),
-        intensity: 1.0,
-        depth: 6,
+        intensity: 0.3,
+        depth: 4,
         textTheme: GoogleFonts.dosisTextTheme(
           TextTheme(
             headline5: TextStyle(
@@ -67,7 +79,19 @@ class RunMyLockdownApp extends StatelessWidget {
             ),
             headline4: TextStyle(
               color: Color(0xFF7D9DFD)
-            )
+            ),
+            bodyText1: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            bodyText2: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            subtitle1: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
+            subtitle2: TextStyle(
+              color: Color(0xFF7D9DFD)
+            ),
           ),
         )
       ),
