@@ -73,8 +73,8 @@ class _StackWidgetState extends State<StackWidget> {
                             widget.reset();
                             widget.addActivity(
                               ActivityModel(
-                                startTime: null, // TODO
-                                endTime:  null, // TODO
+                                startTime: startTime.value,
+                                endTime: endTime.value,
                                 iconName: icon.value,
                                 description: descriptions.value,
                                 eventActions: actionList.value,

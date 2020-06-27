@@ -7,8 +7,11 @@ import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/todays_ag
 
 class SlidingDrawer extends StatelessWidget {
   final CurrentUserModel currentUserModel;
+  final VoidCallback closeDrawer;
 
-  const SlidingDrawer({Key key, @required this.currentUserModel}) : super(key: key);
+  const SlidingDrawer(
+      {Key key, @required this.currentUserModel, @required this.closeDrawer})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,9 @@ class SlidingDrawer extends StatelessWidget {
               children: [
                 UserProfileTile(currentUserModel: currentUserModel),
                 TodaysAgendaTile(
-                  onPressed: () {},
+                  onPressed: () {
+                    closeDrawer();
+                  },
                 ),
                 Spacer(),
                 SignOutDrawerTile(),

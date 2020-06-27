@@ -63,7 +63,7 @@ class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
                       ..setEntry(3, 2, 0.001)
                       ..rotateY(math.pi / 2 * (1 - animationController.value)),
                     alignment: Alignment.centerRight,
-                    child: SlidingDrawer(currentUserModel: widget.currentUserModel,),
+                    child: SlidingDrawer(currentUserModel: widget.currentUserModel, closeDrawer: toggle,),
                   ),
                 ),
                 Transform.translate(

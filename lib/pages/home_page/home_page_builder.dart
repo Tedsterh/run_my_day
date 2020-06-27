@@ -14,7 +14,8 @@ class HomePageBuilder extends StatelessWidget {
       builder: (context) {
         return HomePage.create(
           context,
-          openDrawer: () => SlidingMenuDrawer.of(context).toggle()
+          openDrawer: () => SlidingMenuDrawer.of(context).toggle(),
+          uid: currentUserModel.userID
         );
       }
     );
