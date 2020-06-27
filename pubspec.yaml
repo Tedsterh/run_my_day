@@ -43,6 +43,9 @@ dependencies:
   bot_toast: ^3.0.0
   streaming_shared_preferences: ^1.0.1
   flutter_icons: ^1.1.0
+  flutter_svg: ^0.17.0
+  path_provider: ^1.6.11
+  datetime_picker_formfield: ^1.0.0
 
 dev_dependencies:
   flutter_test:

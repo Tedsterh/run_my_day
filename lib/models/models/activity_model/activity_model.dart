@@ -8,21 +8,25 @@ class ActivityModel {
   final DateTime endTime;
   final String iconName;
   final String eventName;
+  final String description;
+  final List<String> eventActions;
 
-  ActivityModel({this.startTime, this.endTime, this.iconName, this.eventName});
+  ActivityModel({this.startTime, this.endTime, this.iconName, this.eventName, this.description, this.eventActions});
 
-  ActivityModel copyWith({DateTime startTime, DateTime endTime, String iconName, String eventName}) {
+  ActivityModel copyWith({DateTime startTime, DateTime endTime, String iconName, String eventName, String description, List<String> eventActions}) {
     return ActivityModel(
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       iconName: iconName ?? this.iconName,
-      eventName: eventName ?? this.eventName
+      eventName: eventName ?? this.eventName,
+      description: description ?? this.description,
+      eventActions: eventActions ?? this.eventActions
     );
   }
 
   @override
   int get hashCode =>
-    startTime.hashCode ^ endTime.hashCode ^ iconName.hashCode ^ eventName.hashCode;
+    startTime.hashCode ^ endTime.hashCode ^ iconName.hashCode ^ eventName.hashCode ^ description.hashCode ^ eventActions.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -32,15 +36,17 @@ class ActivityModel {
           startTime == other.startTime &&
           endTime == other.endTime &&
           iconName == other.iconName &&
-          eventName == other.eventName;
+          eventName == other.eventName &&
+          description == other.description &&
+          eventActions == other.eventActions;
 
   @override
   String toString() {
-    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName }';
+    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions }';
   }
 
   ActivityEntity toEntity() {
-    return ActivityEntity(startTime, endTime, iconName, eventName);
+    return ActivityEntity(startTime, endTime, iconName, eventName, description, eventActions);
   }
 
   static ActivityModel fromEntity(ActivityEntity entity) {
@@ -48,7 +54,9 @@ class ActivityModel {
       startTime: entity.startTime,
       eventName: entity.eventName,
       endTime: entity.endTime,
-      iconName: entity.iconName
+      iconName: entity.iconName,
+      description: entity.description,
+      eventActions: entity.eventActions
     );
   }
 

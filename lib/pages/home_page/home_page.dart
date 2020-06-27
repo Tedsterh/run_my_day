@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_item.dart';
+import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/calender_item_dialog_box.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/custom_app_bar.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +27,20 @@ class HomePage extends StatelessWidget {
             ),
             AddCalenderItem(
               onAdd: () {
-                
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return CalenderItemDialogBox(
+                      reset: () {
+                        Navigator.of(context).pop();
+                      },
+                      addActivity: (activityModel) {
+                        
+                      },
+                    );
+                  }
+                );
               },
             )
           ],

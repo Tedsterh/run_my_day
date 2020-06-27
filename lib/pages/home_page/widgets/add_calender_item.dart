@@ -13,19 +13,22 @@ class AddCalenderItem extends StatelessWidget {
     return Positioned(
       bottom: MediaQuery.of(context).viewPadding.bottom,
       right: 20,
-      child: NeumorphicButton(
-        onPressed: onAdd,
-        style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.circle(),
-          shape: NeumorphicShape.convex
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: Icon(
-              Icons.add,
-              color: NeumorphicTheme.of(context).current.accentColor,
-              size: 35,
+      child: Hero(
+        tag: 'addCalenderItem',
+        child: NeumorphicButton(
+          onPressed: onAdd,
+          style: NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.circle(),
+            shape: NeumorphicShape.convex
+          ),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Icon(
+                Icons.add,
+                color: NeumorphicTheme.of(context).current.accentColor,
+                size: 35,
+              ),
             ),
           ),
         ),
