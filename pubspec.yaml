@@ -47,6 +47,7 @@ dependencies:
   path_provider: ^1.6.11
   datetime_picker_formfield: ^1.0.0
   uuid: ^2.1.0
+  flutter_dnd: ^0.1.2
 
 dev_dependencies:
   flutter_test:
