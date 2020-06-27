@@ -4,7 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:run_my_lockdown/blocs/auth/authentication/bloc/authentication_bloc.dart';
 import 'package:run_my_lockdown/blocs/simple_bloc_delegate.dart';
-import 'package:run_my_lockdown/pages/home_page/home_page.dart';
+import 'package:run_my_lockdown/pages/home_page/home_page_builder.dart';
 import 'package:run_my_lockdown/pages/sign_in_page/sign_in_page.dart';
 import 'package:run_my_lockdown/pages/splash_screen/splash_screen.dart';
 import 'package:run_my_lockdown/repositories/user_repository/user_repository.dart';
@@ -104,7 +104,9 @@ class RunMyLockdownApp extends StatelessWidget {
             return SplashScreen();
           }
           if (state is Authenticated) {
-            return HomePage.create(context);
+            return HomePageBuilder(
+              currentUserModel: state.currentUser,
+            );
           }
           return SplashScreen();
         }

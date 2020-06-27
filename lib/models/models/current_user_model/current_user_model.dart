@@ -1,5 +1,6 @@
 
 import 'package:meta/meta.dart';
+import 'package:run_my_lockdown/models/entities/current_user_entity/current_user_entity.dart';
 
 @immutable
 class CurrentUserModel {
@@ -38,19 +39,17 @@ class CurrentUserModel {
     return 'CurrentUserModel { name: $name , email: $email , profilePhoto: $profilePhoto , userID: $userID }';
   }
 
-  // ContactUsEntity toEntity() {
-  //   return ContactUsEntity(firstName, lastName, email, message, sentAt, userID);
-  // }
+  CurrentUserEntity toEntity() {
+    return CurrentUserEntity(name, email, profilePhoto, userID);
+  }
 
-  // static ContactUsModel fromEntity(ContactUsEntity entity) {
-  //   return ContactUsModel(
-  //     firstName: entity.firstName,
-  //     lastName: entity.lastName,
-  //     email: entity.email,
-  //     message: entity.message,
-  //     sentAt: entity.sentAt,
-  //     userID: entity.userID
-  //   );
-  // }
+  static CurrentUserModel fromEntity(CurrentUserEntity entity) {
+    return CurrentUserModel(
+      name: entity.name,
+      email: entity.email,
+      profilePhoto: entity.profilePhoto,
+      userID: entity.userID
+    );
+  }
 
 }
