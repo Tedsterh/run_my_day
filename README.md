@@ -1,4 +1,4 @@
-# run_my_lockdown
+# Run My Day
 
 A flutter application to help keep you active in lockdown and manage your day better.
 
