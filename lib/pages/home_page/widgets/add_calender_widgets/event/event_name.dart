@@ -18,7 +18,7 @@ class EventTextField extends StatelessWidget {
       ),
       child: Container(
         height: 45,
-        width: 250,
+        width: MediaQuery.of(context).size.width / 1.8,
         child: Center(
           child: ValueListenableBuilder<String>(
             valueListenable: descriptions,

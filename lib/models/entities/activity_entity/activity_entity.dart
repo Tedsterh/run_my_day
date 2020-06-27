@@ -57,7 +57,7 @@ class ActivityEntity {
         snap.data['startTime'] != null ? snap.data['startTime'].toDate() : null,
         snap.data['endTime'] != null ? snap.data['endTime'].toDate() : null,
         snap.data['iconName'] != null ? snap.data['iconName'] as String : null,
-        snap.data['usereventNameID'] != null
+        snap.data['eventName'] != null
             ? snap.data['eventName'] as String
             : null,
         snap.data['description'] != null
@@ -79,7 +79,8 @@ class ActivityEntity {
       'iconName': iconName,
       'eventName': eventName,
       'eventActions': eventActions,
-      'eventID' : eventID
+      'eventID' : eventID,
+      'description' : description
     };
   }
 }

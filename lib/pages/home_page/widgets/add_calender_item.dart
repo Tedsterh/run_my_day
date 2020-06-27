@@ -11,7 +11,7 @@ class AddCalenderItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: MediaQuery.of(context).viewPadding.bottom,
+      bottom: MediaQuery.of(context).viewPadding.bottom + 10, 
       right: 20,
       child: Hero(
         tag: 'addCalenderItem',

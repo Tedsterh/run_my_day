@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:run_my_lockdown/blocs/auth/authentication/bloc/authentication_bloc.dart';
 import 'package:run_my_lockdown/blocs/auth/login/bloc/login_bloc.dart';
 import 'package:run_my_lockdown/pages/sign_in_page/widgets/sign_in_with_google.dart';
 import 'package:run_my_lockdown/repositories/user_repository/user_repository.dart';
@@ -11,9 +12,7 @@ class SignInPage extends StatefulWidget {
 
   static Widget create(context, {@required UserRepository userRepository}) {
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(
-        userRepository: userRepository
-      ),
+      create: (context) => LoginBloc(userRepository: userRepository),
       child: SignInPage(),
     );
   }
@@ -35,6 +34,7 @@ class _SignInPageState extends State<SignInPage> {
       listener: (BuildContext context, state) {
         if (state is LoginSuccess) {
           _cancelFunc?.call();
+          BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
         }
         if (state is LoginLoading) {
           _cancelFunc = BotToast.showLoading();
@@ -68,9 +68,7 @@ class _SignInPageState extends State<SignInPage> {
                   style: Theme.of(context).textTheme.headline6,
                 ),
               ),
-              SizedBox(
-                height: 40
-              ),
+              SizedBox(height: 40),
               SignInGoogleButton(
                 signInWithGoogle: _signInWithGoogle,
               )
@@ -84,5 +82,4 @@ class _SignInPageState extends State<SignInPage> {
   void _signInWithGoogle() {
     BlocProvider.of<LoginBloc>(context).add(SignInWithGoogle());
   }
-
 }

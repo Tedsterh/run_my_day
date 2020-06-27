@@ -34,6 +34,29 @@ class HomePage extends StatelessWidget {
               title: 'Todays Agenda',
               onPressed: () => openDrawer(),
             ),
+            Positioned(
+              top: MediaQuery.of(context).viewPadding.top + 90,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height -
+                  (MediaQuery.of(context).viewPadding.top + 90),
+              left: 0,
+              child: BlocBuilder<ActivitiesBloc, ActivitiesState>(
+                  builder: (context, state) {
+                return Container(
+                  color: Colors.transparent,
+                  child: state is UpdatedActivities
+                      ? ListView.builder(
+                          itemCount: state.activities.length,
+                          itemBuilder: (BuildContext context, index) {
+                            return Text(state.activities[index].toString());
+                          },
+                        )
+                      : Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                );
+              }),
+            ),
             AddCalenderItem(
               onAdd: () {
                 showDialog(
@@ -51,7 +74,7 @@ class HomePage extends StatelessWidget {
                       );
                     });
               },
-            )
+            ),
           ],
         ),
       ),

@@ -29,21 +29,22 @@ class UserRepository {
     ]);
   }
 
+  Future<bool> isSignedIn() async {
+    return await _firebaseAuth.currentUser() != null;
+  }
+
   Stream<bool> isSignedInStream() {
-    return _firebaseAuth.onAuthStateChanged.map(
-      (currentUser) {
-        return currentUser != null;
-      }
-    );
+    return _firebaseAuth.onAuthStateChanged.map((currentUser) {
+      return currentUser != null;
+    });
   }
 
   Future<CurrentUserModel> getUserDetails() async {
-    FirebaseUser _firebaseUser =  await _firebaseAuth.currentUser();
+    FirebaseUser _firebaseUser = await _firebaseAuth.currentUser();
     return CurrentUserModel(
-      email: _firebaseUser.email,
-      profilePhoto: _firebaseUser.photoUrl,
-      userID: _firebaseUser.uid,
-      name: _firebaseUser.displayName
-    );
+        email: _firebaseUser.email,
+        profilePhoto: _firebaseUser.photoUrl,
+        userID: _firebaseUser.uid,
+        name: _firebaseUser.displayName);
   }
 }

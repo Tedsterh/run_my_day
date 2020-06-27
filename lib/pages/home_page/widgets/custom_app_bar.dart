@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).viewPadding.top,
+      top: MediaQuery.of(context).viewPadding.top + 10,
       left: 10,
       child: Row(
         children: <Widget>[

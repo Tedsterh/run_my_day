@@ -9,19 +9,20 @@ import 'package:run_my_lockdown/repositories/user_repository/user_repository.dar
 part 'authentication_event.dart';
 part 'authentication_state.dart';
 
-class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc
+    extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository _userRepository;
-  StreamSubscription _userState;
 
   AuthenticationBloc({@required UserRepository userRepository})
-    : assert(userRepository != null),
-      _userRepository = userRepository;
+      : assert(userRepository != null),
+        _userRepository = userRepository;
 
   @override
   AuthenticationState get initialState => Uninisialised();
 
   @override
-  Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
+  Stream<AuthenticationState> mapEventToState(
+      AuthenticationEvent event) async* {
     if (event is AppStarted) {
       yield* _mapAppStartedToState(event);
     } else if (event is LoggedIn) {
@@ -32,27 +33,23 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   }
 
   Stream<AuthenticationState> _mapAppStartedToState(AppStarted event) async* {
-    _userState?.cancel();
-    _userState = _userRepository.isSignedInStream().listen(
-      (state) {
-        if (state) {
-          add(LoggedIn());
-        } else {
-          add(LoggedOut());
-        }
-      }
-    );
+    if (await _userRepository.isSignedIn()) {
+      yield Authenticated(await _userRepository.getUserDetails());
+    } else {
+      yield Unauthenticated();
+    }
   }
 
   Stream<AuthenticationState> _mapLoggedInToState(LoggedIn event) async* {
-    yield Authenticated(
-      await _userRepository.getUserDetails()
-    );
+    if (await _userRepository.isSignedIn()) {
+      yield Authenticated(await _userRepository.getUserDetails());
+    } else {
+      yield Unauthenticated();
+    }
   }
 
   Stream<AuthenticationState> _mapLoggedOutToState(LoggedOut event) async* {
     yield Unauthenticated();
     _userRepository.signOut();
   }
-
 }

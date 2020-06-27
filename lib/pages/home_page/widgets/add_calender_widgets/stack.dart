@@ -9,7 +9,8 @@ import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/ima
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/time_widget/time_widget.dart';
 
 class StackWidget extends StatefulWidget {
-  StackWidget({Key key, @required this.reset, @required this.addActivity}) : super(key: key);
+  StackWidget({Key key, @required this.reset, @required this.addActivity})
+      : super(key: key);
   final VoidCallback reset;
   final Function(ActivityModel) addActivity;
 
@@ -19,9 +20,10 @@ class StackWidget extends StatefulWidget {
 
 class _StackWidgetState extends State<StackWidget> {
   ValueNotifier<DateTime> startTime = ValueNotifier(DateTime.now());
-  ValueNotifier<DateTime> endTime = ValueNotifier(DateTime.now().add(Duration(hours: 1)));
+  ValueNotifier<DateTime> endTime =
+      ValueNotifier(DateTime.now().add(Duration(hours: 1)));
   ValueNotifier<String> eventTitle = ValueNotifier('');
-  ValueNotifier<String> descriptions = ValueNotifier('');  
+  ValueNotifier<String> descriptions = ValueNotifier('');
   ValueNotifier<String> icon = ValueNotifier('');
   final ValueNotifier<List<String>> actionList = ValueNotifier([]);
   final ScrollController _scrollController = ScrollController();
@@ -46,9 +48,7 @@ class _StackWidgetState extends State<StackWidget> {
               height: 550,
               child: Stack(
                 children: <Widget>[
-                  ChooseIconWidget(
-                    icon: icon
-                  ),
+                  ChooseIconWidget(icon: icon),
                   Positioned(
                     top: 20,
                     left: 15,
@@ -58,10 +58,7 @@ class _StackWidgetState extends State<StackWidget> {
                       children: <Widget>[
                         EventTextField(descriptions: eventTitle),
                         SizedBox(height: 15),
-                        SelectTimeTile(
-                          startTime: startTime, 
-                          endTime: endTime
-                        ),
+                        SelectTimeTile(startTime: startTime, endTime: endTime),
                         SizedBox(height: 15),
                         EventDescriptionField(descriptions: descriptions),
                         AddPredefinedActions(
@@ -81,7 +78,7 @@ class _StackWidgetState extends State<StackWidget> {
                                 eventName: eventTitle.value
                               )
                             );
-                          }, 
+                          },
                           reset: widget.reset,
                         ),
                         SizedBox(height: 15),
