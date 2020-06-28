@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget {
             onPressed: onPressed,
             style: NeumorphicStyle(
               boxShape: NeumorphicBoxShape.circle(),
-              shape: NeumorphicShape.convex
+              shape: NeumorphicShape.concave
             ),
             child: Center(
               child: Padding(

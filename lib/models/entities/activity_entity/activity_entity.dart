@@ -8,9 +8,10 @@ class ActivityEntity {
   final String description;
   final List<String> eventActions;
   final String eventID;
+  final Duration duration;
 
   ActivityEntity(this.startTime, this.endTime, this.iconName, this.eventName,
-      this.description, this.eventActions, this.eventID);
+      this.description, this.eventActions, this.eventID, this.duration);
 
   @override
   int get hashCode =>
@@ -20,7 +21,8 @@ class ActivityEntity {
       eventName.hashCode ^
       description.hashCode ^
       eventActions.hashCode ^
-      eventID.hashCode;
+      eventID.hashCode ^
+      duration.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -33,7 +35,8 @@ class ActivityEntity {
           eventName == other.eventName &&
           description == other.description &&
           eventActions == other.eventActions &&
-          eventID == other.eventID;
+          eventID == other.eventID &&
+          duration == other.duration;
 
   Map<String, Object> toJson() {
     return {
@@ -43,13 +46,14 @@ class ActivityEntity {
       'eventName': eventName,
       'description': description,
       'eventActions': eventActions,
-      'eventID' : eventID
+      'eventID': eventID,
+      'duration' : duration
     };
   }
 
   @override
   String toString() {
-    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID }';
+    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration }';
   }
 
   static ActivityEntity fromSnapshot(DocumentSnapshot snap) {
@@ -66,10 +70,9 @@ class ActivityEntity {
         snap.data['eventActions'] != null
             ? List<String>.from(snap.data['eventActions'])
             : <String>[],
-        snap.data['eventID'] != null
-            ? snap.data['eventID'] as String
-            : null
-    );
+        snap.data['eventID'] != null ? snap.data['eventID'] as String : null,
+        snap.data['duration'] != null ? Duration(seconds: snap.data['duration']) : null
+      );
   }
 
   Map<String, Object> toDocument() {
@@ -79,8 +82,9 @@ class ActivityEntity {
       'iconName': iconName,
       'eventName': eventName,
       'eventActions': eventActions,
-      'eventID' : eventID,
-      'description' : description
+      'eventID': eventID,
+      'description': description,
+      'duration' : duration.inSeconds
     };
   }
 }

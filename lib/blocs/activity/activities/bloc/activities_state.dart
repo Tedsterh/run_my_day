@@ -7,12 +7,12 @@ abstract class ActivitiesState extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadingActivities extends ActivitiesState {}
+class LoadingAvailableActivities extends ActivitiesState {}
 
-class UpdatedActivities extends ActivitiesState {
+class UpdatedAvailableActivities extends ActivitiesState {
   final List<ActivityModel> activities;
 
-  UpdatedActivities(this.activities);
+  UpdatedAvailableActivities(this.activities);
 
   @override
   List<Object> get props => [activities];

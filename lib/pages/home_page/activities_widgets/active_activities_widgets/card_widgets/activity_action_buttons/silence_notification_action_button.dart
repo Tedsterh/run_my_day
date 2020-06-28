@@ -24,8 +24,10 @@ class SilenceNotificationsButton extends StatelessWidget {
     );
   }
 
-  Future<void> silenceClicked(context, {@required DoNotDisturbState state}) async {
-    if ((state is DoNotDisturbInitial && !state.isSilenced) || state is TurnedOffSilentNotifications) {
+  Future<void> silenceClicked(context,
+      {@required DoNotDisturbState state}) async {
+    if ((state is DoNotDisturbInitial && !state.isSilenced) ||
+        state is TurnedOffSilentNotifications) {
       bool shouldSilence = await PlatformAlertDialog(
         title: 'Silence Notifications',
         content: 'Are you sure you want to silence notifications?',
@@ -36,9 +38,11 @@ class SilenceNotificationsButton extends StatelessWidget {
         BlocProvider.of<DoNotDisturbBloc>(context).add(SilenceNotifications());
       }
     } else if (state is SilencedNotifications) {
-      BlocProvider.of<DoNotDisturbBloc>(context).add(TurnOffSilentNotificatins());
+      BlocProvider.of<DoNotDisturbBloc>(context)
+          .add(TurnOffSilentNotificatins());
     } else if (state is DoNotDisturbInitial && state.isSilenced) {
-      BlocProvider.of<DoNotDisturbBloc>(context).add(TurnOffSilentNotificatins());
+      BlocProvider.of<DoNotDisturbBloc>(context)
+          .add(TurnOffSilentNotificatins());
     }
   }
 
@@ -47,23 +51,21 @@ class SilenceNotificationsButton extends StatelessWidget {
     return BlocBuilder<DoNotDisturbBloc, DoNotDisturbState>(
         builder: (context, state) {
       return Container(
-        width: 160,
+        width: 200,
         child: Center(
-            child: NeumorphicButton(
-                style: NeumorphicStyle(
-                    boxShape: NeumorphicBoxShape.roundRect(
-                        BorderRadius.circular(20))),
-                onPressed: () => silenceClicked(context, state: state),
-                child: Text(
-                  state is DoNotDisturbInitial
-                      ? state.isSilenced
-                          ? 'Enable Notifications'
-                          : 'Silence Notifications'
-                      : state is SilencedNotifications
-                          ? 'Enable Notifications'
-                          : 'Silence Notifications',
-                  style: TextStyle(color: Color(0xFF7D9DFD), fontSize: 14),
-                ))),
+            child: FlatButton(
+          onPressed: () => silenceClicked(context, state: state),
+          child: NeumorphicText(
+            state is DoNotDisturbInitial
+                ? state.isSilenced
+                    ? 'Enable Notifications'
+                    : 'Silence Notifications'
+                : state is SilencedNotifications
+                    ? 'Enable Notifications'
+                    : 'Silence Notifications',
+            style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
+          ),
+        )),
       );
     });
   }

@@ -19,7 +19,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
         _activitiesRepository = activitiesRepository;
 
   @override
-  ActivitiesState get initialState => LoadingActivities();
+  ActivitiesState get initialState => LoadingAvailableActivities();
 
   @override
   Future<void> close() {
@@ -29,27 +29,34 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
 
   @override
   Stream<ActivitiesState> mapEventToState(ActivitiesEvent event) async* {
-    if (event is GetActivities) {
+    if (event is GetAvailableActivities) {
       yield* _mapGetActivitiesToState(event);
-    } else if (event is ActivitiesUpdated) {
+    } else if (event is AvailableActivitiesUpdated) {
       yield* _mapActivitiesUpdatedToState(event);
     } else if (event is AddNewEvent) {
       yield* _mapAddNewEventToState(event);
+    } else if (event is StartNow) {
+      yield* _mapStartNowToState(event);
+    } else if (event is StartInAnHour) {
+      yield* _mapStartInAnHourToState(event);
+    } else if (event is DefereTillTomorrow) {
+      yield* _mapDefereTillTomorrowToState(event);
     }
   }
 
-  Stream<ActivitiesState> _mapGetActivitiesToState(GetActivities event) async* {
+  Stream<ActivitiesState> _mapGetActivitiesToState(
+      GetAvailableActivities event) async* {
     _activitiesSubscription?.cancel();
     _activitiesSubscription = _activitiesRepository
-        .getActivities(currentDate: DateTime.now())
+        .getAvailableActivities(currentDate: DateTime.now())
         .listen((activities) {
-      add(ActivitiesUpdated(activities));
+      add(AvailableActivitiesUpdated(activities));
     });
   }
 
   Stream<ActivitiesState> _mapActivitiesUpdatedToState(
-      ActivitiesUpdated event) async* {
-    yield UpdatedActivities(event.activities);
+      AvailableActivitiesUpdated event) async* {
+    yield UpdatedAvailableActivities(event.activities);
   }
 
   Stream<ActivitiesState> _mapAddNewEventToState(AddNewEvent event) async* {
@@ -57,5 +64,28 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
     _activitiesRepository.addNewActivity(
         activityModel: event.activity.copyWith(eventID: uuid.v4()),
         currentDate: DateTime.now());
+  }
+
+  Stream<ActivitiesState> _mapStartNowToState(StartNow event) async* {
+    DateTime now = DateTime.now();
+    _activitiesRepository.startNow(
+        activityID: event.activityModel.eventID,
+        startTime: now,
+        endTime: now.add(event.activityModel.duration));
+  }
+
+  Stream<ActivitiesState> _mapStartInAnHourToState(StartInAnHour event) async* {
+    DateTime now = DateTime.now().add(Duration(hours: 1));
+    _activitiesRepository.startInAnHour(
+        activityID: event.activityModel.eventID,
+        startTime: now,
+        endTime: now.add(event.activityModel.duration));
+  }
+
+  Stream<ActivitiesState> _mapDefereTillTomorrowToState(
+      DefereTillTomorrow event) async* {
+    DateTime now = DateTime.now().add(Duration(hours: 1));
+    _activitiesRepository.defereTillTomorrow(
+        activityID: event.activityModel.eventID, currentDate: now);
   }
 }

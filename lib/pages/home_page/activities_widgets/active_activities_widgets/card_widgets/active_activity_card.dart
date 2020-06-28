@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:run_my_lockdown/blocs/activity/activities/bloc/activities_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:run_my_lockdown/models/models/activity_model/activity_model.dart';
+import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activities_widgets/card_widgets/activity_card_widgets/action_buttons.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/custom/custom_expanstion_tile.dart';
 
-class AvailableActivityCard extends StatefulWidget {
-  const AvailableActivityCard({Key key, @required this.activityModel})
+class ActiveActivityCard extends StatefulWidget {
+  const ActiveActivityCard({Key key, @required this.activityModel})
       : super(key: key);
   final ActivityModel activityModel;
 
   @override
-  _AvailableActivityCardState createState() => _AvailableActivityCardState();
+  _ActiveActivityCardState createState() => _ActiveActivityCardState();
 }
 
-class _AvailableActivityCardState extends State<AvailableActivityCard>
+class _ActiveActivityCardState extends State<ActiveActivityCard>
     with SingleTickerProviderStateMixin {
   Stream timeUpdater = Stream.periodic(Duration(seconds: 1));
   GlobalKey<ActivityExpansionTileState> key = GlobalKey();
@@ -40,7 +39,7 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
   void didChangeDependencies() {
     animation = Tween<double>(begin: 30.0, end: 0.0).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
-    heightAnimation = Tween<double>(begin: 60.0, end: 120.0).animate(
+    heightAnimation = Tween<double>(begin: 180.0, end: 240.0).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     super.didChangeDependencies();
   }
@@ -96,9 +95,9 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                         style: NeumorphicStyle(
                             boxShape: NeumorphicBoxShape.roundRect(
                                 BorderRadius.circular(30)),
-                            shape: NeumorphicShape.concave,),
+                            shape: NeumorphicShape.concave),
                         child: Container(
-                          height: 60,
+                          height: 180,
                           width: MediaQuery.of(context).size.width,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -153,49 +152,9 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                       height: 60,
                       child: Container(
                         color: Colors.transparent,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          physics: ClampingScrollPhysics(),
-                          children: <Widget>[
-                            FlatButton(
-                              onPressed: () {
-                                BlocProvider.of<ActivitiesBloc>(context)
-                                    .add(StartNow(widget.activityModel));
-                              },
-                              child: NeumorphicText(
-                                'Start now',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                BlocProvider.of<ActivitiesBloc>(context)
-                                    .add(StartInAnHour(widget.activityModel));
-                              },
-                              child: NeumorphicText(
-                                'Start in an hour',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {
-                                BlocProvider.of<ActivitiesBloc>(context)
-                                    .add(DefereTillTomorrow(widget.activityModel));
-                              },
-                              child: NeumorphicText(
-                                'Defere till tomorrow',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
-                              ),
-                            ),
-                            FlatButton(
-                              onPressed: () {},
-                              child: NeumorphicText(
-                                'Defere till next week',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
-                              ),
-                            )
-                          ],
-                        ),
+                        child: ActionButtons(
+                          actions: widget.activityModel.eventActions
+                        )
                       ),
                     )
                   ],

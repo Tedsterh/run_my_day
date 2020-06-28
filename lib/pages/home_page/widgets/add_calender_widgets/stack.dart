@@ -19,9 +19,7 @@ class StackWidget extends StatefulWidget {
 }
 
 class _StackWidgetState extends State<StackWidget> {
-  ValueNotifier<DateTime> startTime = ValueNotifier(DateTime.now());
-  ValueNotifier<DateTime> endTime =
-      ValueNotifier(DateTime.now().add(Duration(hours: 1)));
+  ValueNotifier<Duration> duration = ValueNotifier(Duration(minutes: 30));
   ValueNotifier<String> eventTitle = ValueNotifier('');
   ValueNotifier<String> descriptions = ValueNotifier('');
   ValueNotifier<String> icon = ValueNotifier('');
@@ -58,7 +56,7 @@ class _StackWidgetState extends State<StackWidget> {
                       children: <Widget>[
                         EventTextField(descriptions: eventTitle),
                         SizedBox(height: 15),
-                        SelectTimeTile(startTime: startTime, endTime: endTime),
+                        SelectTimeTile(duration: duration),
                         SizedBox(height: 15),
                         EventDescriptionField(descriptions: descriptions),
                         AddPredefinedActions(
@@ -68,16 +66,12 @@ class _StackWidgetState extends State<StackWidget> {
                         EventActionsAdd(
                           onAdd: () {
                             widget.reset();
-                            widget.addActivity(
-                              ActivityModel(
-                                startTime: startTime.value,
-                                endTime: endTime.value,
+                            widget.addActivity(ActivityModel(
+                                duration: duration.value,
                                 iconName: icon.value,
                                 description: descriptions.value,
                                 eventActions: actionList.value,
-                                eventName: eventTitle.value
-                              )
-                            );
+                                eventName: eventTitle.value));
                           },
                           reset: widget.reset,
                         ),

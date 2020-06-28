@@ -41,7 +41,7 @@ class RunMyLockdownApp extends StatelessWidget {
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
         accentColor: Color(0xFF7D9DFD),
-        intensity: 1.0,
+        intensity: 0.7,
         depth: 10,
         textTheme: GoogleFonts.dosisTextTheme(
           TextTheme(

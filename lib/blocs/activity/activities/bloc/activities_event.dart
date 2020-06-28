@@ -7,12 +7,12 @@ abstract class ActivitiesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetActivities extends ActivitiesEvent {}
+class GetAvailableActivities extends ActivitiesEvent {}
 
-class ActivitiesUpdated extends ActivitiesEvent {
+class AvailableActivitiesUpdated extends ActivitiesEvent {
   final List<ActivityModel> activities;
 
-  ActivitiesUpdated(this.activities);
+  AvailableActivitiesUpdated(this.activities);
 
   @override
   List<Object> get props => [activities];
@@ -25,4 +25,31 @@ class AddNewEvent extends ActivitiesEvent {
 
   @override
   List<Object> get props => [activity];
+}
+
+class StartNow extends ActivitiesEvent {
+  final ActivityModel activityModel;
+
+  StartNow(this.activityModel);
+
+  @override
+  List<Object> get props => [activityModel];
+}
+
+class StartInAnHour extends ActivitiesEvent {
+  final ActivityModel activityModel;
+
+  StartInAnHour(this.activityModel);
+
+  @override
+  List<Object> get props => [activityModel];
+}
+
+class DefereTillTomorrow extends ActivitiesEvent {
+  final ActivityModel activityModel;
+
+  DefereTillTomorrow(this.activityModel);
+
+  @override
+  List<Object> get props => [activityModel];
 }
