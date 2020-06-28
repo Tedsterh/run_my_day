@@ -33,7 +33,7 @@ class _SignInPageState extends State<SignInPage> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (BuildContext context, state) {
         if (state is LoginSuccess) {
-          _cancelFunc?.call();
+          _cancelFunc();
           BlocProvider.of<AuthenticationBloc>(context).add(LoggedIn());
         }
         if (state is LoginLoading) {
@@ -62,10 +62,13 @@ class _SignInPageState extends State<SignInPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Text(
+                child: NeumorphicText(
                   'Welcome to Run My Lockdown\n to get started sign in with Google below',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: NeumorphicStyle(
+                    color: Colors.black,
+                    shadowLightColor: Color(0xFF7D9DFD)
+                  ),
                 ),
               ),
               SizedBox(height: 40),

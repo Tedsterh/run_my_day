@@ -21,7 +21,8 @@ class SignInGoogleButton extends StatelessWidget {
           child: NeumorphicButton(
             onPressed: signInWithGoogle,
             style: NeumorphicStyle(
-              shape: NeumorphicShape.flat,
+              shape: NeumorphicShape.concave,
+              boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(30))
             ),
             child: Stack(
               children: <Widget>[
