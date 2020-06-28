@@ -11,6 +11,7 @@ class ActivityEntity {
   final String eventID;
   final Duration duration;
   final LatLng eventLocation;
+  final String movieID;
 
   ActivityEntity(
       this.startTime,
@@ -21,7 +22,8 @@ class ActivityEntity {
       this.eventActions,
       this.eventID,
       this.duration,
-      this.eventLocation);
+      this.eventLocation,
+      this.movieID);
 
   @override
   int get hashCode =>
@@ -33,7 +35,8 @@ class ActivityEntity {
       eventActions.hashCode ^
       eventID.hashCode ^
       duration.hashCode ^
-      eventLocation.hashCode;
+      eventLocation.hashCode ^
+      movieID.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -48,7 +51,8 @@ class ActivityEntity {
           eventActions == other.eventActions &&
           eventID == other.eventID &&
           duration == other.duration &&
-          eventLocation == other.eventLocation;
+          eventLocation == other.eventLocation &&
+          movieID == other.movieID;
 
   Map<String, Object> toJson() {
     return {
@@ -60,13 +64,14 @@ class ActivityEntity {
       'eventActions': eventActions,
       'eventID': eventID,
       'duration': duration,
-      'eventLocation': eventLocation
+      'eventLocation': eventLocation,
+      'movieID': movieID
     };
   }
 
   @override
   String toString() {
-    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation }';
+    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation , movieID: $movieID }';
   }
 
   static ActivityEntity fromSnapshot(DocumentSnapshot snap) {
@@ -90,7 +95,8 @@ class ActivityEntity {
         snap.data['eventLocation'] != null
             ? LatLng(snap.data['eventLocation'].latitude,
                 snap.data['eventLocation'].longitude)
-            : null);
+            : null,
+        snap.data['movieID'] != null ? snap.data['movieID'] : null);
   }
 
   Map<String, Object> toDocument() {
@@ -103,7 +109,10 @@ class ActivityEntity {
       'eventID': eventID,
       'description': description,
       'duration': duration.inSeconds,
-      'eventLocation' : eventLocation != null ? GeoPoint(eventLocation.latitude, eventLocation.longitude) : null
+      'eventLocation': eventLocation != null
+          ? GeoPoint(eventLocation.latitude, eventLocation.longitude)
+          : null,
+      'movieID': movieID
     };
   }
 }

@@ -24,18 +24,26 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
     MovieSearchEvent event,
   ) async* {
     if (event is FindMovies) {
-      yield FoundMatchingMovies(
-        matchingMovies: await _tmdbRepository.listMoviesByKeyword(event.searchKeyword),
-      );
-    }
-    if (event is GetMovieDetails) {
-      yield FoundMovie(
-        movie: await _tmdbRepository.getMovieDetails(event.movieId),
-      );
-    }
-    if (event is Initialise) {
+      yield* _mapFindMoviesToState(event);
+    } else if (event is GetMovieDetails) {
+      yield* _mapGetMovieDetailsToState(event);
+    } else if (event is Initialise) {
       yield* _mapInitialiseToState(event);
     }
+  }
+
+  Stream<MovieSearchState> _mapFindMoviesToState(FindMovies event) async* {
+    yield FoundMatchingMovies(
+      matchingMovies:
+          await _tmdbRepository.listMoviesByKeyword(event.searchKeyword),
+    );
+  }
+
+  Stream<MovieSearchState> _mapGetMovieDetailsToState(
+      GetMovieDetails event) async* {
+    yield FoundMovie(
+      movie: await _tmdbRepository.getMovieDetails(event.movieId),
+    );
   }
 
   Stream<MovieSearchState> _mapInitialiseToState(Initialise event) async* {

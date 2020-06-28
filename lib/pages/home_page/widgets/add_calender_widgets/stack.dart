@@ -24,6 +24,7 @@ class _StackWidgetState extends State<StackWidget> {
   ValueNotifier<String> eventTitle = ValueNotifier('');
   ValueNotifier<String> descriptions = ValueNotifier('');
   ValueNotifier<String> icon = ValueNotifier('');
+  final ValueNotifier<String> movieID = ValueNotifier(null);
   final ValueNotifier<LatLng> eventLocation = ValueNotifier(null);
   final ValueNotifier<List<String>> actionList = ValueNotifier([]);
   final ScrollController _scrollController = ScrollController();
@@ -45,7 +46,7 @@ class _StackWidgetState extends State<StackWidget> {
           controller: _scrollController,
           children: <Widget>[
             Container(
-              height: 600,
+              height: 680,
               child: Stack(
                 children: <Widget>[
                   ChooseIconWidget(icon: icon),
@@ -65,6 +66,7 @@ class _StackWidgetState extends State<StackWidget> {
                           scrollController: _scrollController,
                           actionList: actionList,
                           eventLocation: eventLocation,
+                          movieID: movieID,
                         ),
                         EventActionsAdd(
                           onAdd: () {
@@ -75,7 +77,8 @@ class _StackWidgetState extends State<StackWidget> {
                                 description: descriptions.value,
                                 eventActions: actionList.value,
                                 eventName: eventTitle.value,
-                                eventLocation: eventLocation.value));
+                                eventLocation: eventLocation.value,
+                                movieID: movieID.value));
                           },
                           reset: widget.reset,
                         ),

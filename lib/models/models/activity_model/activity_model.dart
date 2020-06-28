@@ -13,6 +13,7 @@ class ActivityModel {
   final String eventID;
   final Duration duration;
   final LatLng eventLocation;
+  final String movieID;
 
   ActivityModel(
       {this.startTime,
@@ -23,7 +24,8 @@ class ActivityModel {
       this.eventActions,
       this.eventID,
       this.duration,
-      this.eventLocation});
+      this.eventLocation,
+      this.movieID});
 
   ActivityModel copyWith(
       {DateTime startTime,
@@ -34,7 +36,8 @@ class ActivityModel {
       List<String> eventActions,
       String eventID,
       Duration duration,
-      LatLng eventLocation}) {
+      LatLng eventLocation,
+      String movieID}) {
     return ActivityModel(
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
@@ -44,7 +47,8 @@ class ActivityModel {
         eventActions: eventActions ?? this.eventActions,
         eventID: eventID ?? this.eventID,
         duration: duration ?? this.duration,
-        eventLocation: eventLocation ?? this.eventLocation);
+        eventLocation: eventLocation ?? this.eventLocation,
+        movieID: movieID ?? this.movieID);
   }
 
   @override
@@ -57,7 +61,8 @@ class ActivityModel {
       eventActions.hashCode ^
       eventID.hashCode ^
       duration.hashCode ^
-      eventLocation.hashCode;
+      eventLocation.hashCode ^
+      movieID.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -72,16 +77,17 @@ class ActivityModel {
           eventActions == other.eventActions &&
           eventID == other.eventID &&
           duration == other.duration &&
-          eventLocation == other.eventLocation;
+          eventLocation == other.eventLocation &&
+          movieID == other.movieID;
 
   @override
   String toString() {
-    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation }';
+    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation , movieID: $movieID }';
   }
 
   ActivityEntity toEntity() {
     return ActivityEntity(startTime, endTime, iconName, eventName, description,
-        eventActions, eventID, duration, eventLocation);
+        eventActions, eventID, duration, eventLocation, movieID);
   }
 
   static ActivityModel fromEntity(ActivityEntity entity) {
@@ -94,6 +100,7 @@ class ActivityModel {
         eventActions: entity.eventActions,
         eventID: entity.eventID,
         duration: entity.duration,
-        eventLocation: entity.eventLocation);
+        eventLocation: entity.eventLocation,
+        movieID: entity.movieID);
   }
 }

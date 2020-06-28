@@ -2,12 +2,12 @@ part of 'movie_search_bloc.dart';
 
 abstract class MovieSearchState extends Equatable {
   const MovieSearchState();
-}
 
-class MovieSearchInitial extends MovieSearchState {
   @override
   List<Object> get props => [];
 }
+
+class MovieSearchInitial extends MovieSearchState {}
 
 class FoundMatchingMovies extends MovieSearchState {
   const FoundMatchingMovies({@required this.matchingMovies});
@@ -15,7 +15,11 @@ class FoundMatchingMovies extends MovieSearchState {
   final List<MovieBase> matchingMovies;
 
   @override
-  List<Object> get props => [ matchingMovies ];
+  List<Object> get props => [matchingMovies];
+
+  @override
+  String toString() =>
+      'FoundMatchingMovies { matchingMovies: $matchingMovies }';
 }
 
 class FoundMovie extends MovieSearchState {
@@ -24,5 +28,8 @@ class FoundMovie extends MovieSearchState {
   final Movie movie;
 
   @override
-  List<Object> get props => [ movie ];
+  List<Object> get props => [movie];
+
+  @override
+  String toString() => 'FoundMovie { movie: $movie }';
 }

@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/custom/custom_expanstion_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/do_not_disturb.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/location.dart';
+import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/movie_time.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/track_walk.dart';
 
 class AddPredefinedActions extends StatefulWidget {
@@ -11,11 +12,13 @@ class AddPredefinedActions extends StatefulWidget {
     Key key,
     @required this.scrollController,
     @required this.actionList,
-    @required this.eventLocation
+    @required this.eventLocation,
+    @required this.movieID
   }) : super(key: key);
   final ScrollController scrollController;  
   final ValueNotifier<List<String>> actionList;
   final ValueNotifier<LatLng> eventLocation;
+  final ValueNotifier<String> movieID;
 
   @override
   _AddPredefinedActionsState createState() => _AddPredefinedActionsState();
@@ -73,6 +76,10 @@ class _AddPredefinedActionsState extends State<AddPredefinedActions> {
             LocationAction(
               actionList: widget.actionList,
               eventLocation: widget.eventLocation,
+            ),
+            MovieTimeAction(
+              actionList: widget.actionList,
+              movieID: widget.movieID,
             )
           ],
         ),
