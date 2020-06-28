@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:run_my_lockdown/models/models/current_user_model/current_user_model.dart';
+import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/next_week_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/profile_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/sign_out_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/todays_agenda.dart';
@@ -39,12 +40,15 @@ class SlidingDrawer extends StatelessWidget {
                     changeDate(DateTime.now());
                   },
                 ),
-                TomorrowsAgendaTile(
-                  onPressed: () {
-                    closeDrawer();
-                    changeDate(DateTime.now().add(Duration(days: 1)));
-                  }
-                ),
+                TomorrowsAgendaTile(onPressed: () {
+                  closeDrawer();
+                  changeDate(DateTime.now().add(Duration(days: 1)));
+                }),
+                NextMondaysAgendaTile(onPressed: () {
+                  closeDrawer();
+                  var now = DateTime.now();
+                  changeDate(now.add(Duration(days: 7 - (now.weekday - 1))));
+                }),
                 Spacer(),
                 SignOutDrawerTile(),
               ],
