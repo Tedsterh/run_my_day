@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:run_my_lockdown/models/models/activity_model/activity_model.dart';
 import 'package:run_my_lockdown/repositories/activities_repository/activities_repository.dart';
+import 'package:run_my_lockdown/repositories/notification_repository/notification_repository.dart';
 import 'package:uuid/uuid.dart';
 
 part 'activities_event.dart';
@@ -12,11 +13,15 @@ part 'activities_state.dart';
 
 class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
   final ActivitiesRepository _activitiesRepository;
+  final NotificationRepository _notificationRepository;
   StreamSubscription _activitiesSubscription;
 
-  ActivitiesBloc({@required ActivitiesRepository activitiesRepository})
-      : assert(activitiesRepository != null),
-        _activitiesRepository = activitiesRepository;
+  ActivitiesBloc(
+      {@required ActivitiesRepository activitiesRepository,
+      @required NotificationRepository notificationRepository})
+      : assert(activitiesRepository != null && notificationRepository != null),
+        _activitiesRepository = activitiesRepository,
+        _notificationRepository = notificationRepository;
 
   @override
   ActivitiesState get initialState => LoadingAvailableActivities();
@@ -78,7 +83,8 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
 
   Stream<ActivitiesState> _mapStartInAnHourToState(StartInAnHour event) async* {
     DateTime now = DateTime.now().add(Duration(hours: 1));
-    // TODO: local notification
+    _notificationRepository.scheduleNotification(
+        dateTime: now, activityModel: event.activityModel);
     _activitiesRepository.startInAnHour(
         activityID: event.activityModel.eventID,
         startTime: now,
@@ -96,6 +102,8 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       DefereTillNextMonday event) async* {
     DateTime now = DateTime.now();
     _activitiesRepository.defereTillNextWeek(
-        activityID: event.activityModel.eventID, current: now, nextMonday: now.add(Duration(days: 7 - (now.weekday - 1))));
+        activityID: event.activityModel.eventID,
+        current: now,
+        nextMonday: now.add(Duration(days: 7 - (now.weekday - 1))));
   }
 }
