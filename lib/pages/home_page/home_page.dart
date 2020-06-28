@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:run_my_lockdown/blocs/activity/activities/bloc/activities_bloc.dart';
+import 'package:run_my_lockdown/pages/home_page/activities_widgets/activities_card.dart';
+import 'package:run_my_lockdown/pages/home_page/activities_widgets/activity_list_builder.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_item.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/calender_item_dialog_box.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/custom_app_bar.dart';
@@ -30,32 +32,10 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Stack(
           children: <Widget>[
+            ActivityListBuilder(),
             CustomAppBar(
               title: 'Todays Agenda',
               onPressed: () => openDrawer(),
-            ),
-            Positioned(
-              top: MediaQuery.of(context).viewPadding.top + 90,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height -
-                  (MediaQuery.of(context).viewPadding.top + 90),
-              left: 0,
-              child: BlocBuilder<ActivitiesBloc, ActivitiesState>(
-                  builder: (context, state) {
-                return Container(
-                  color: Colors.transparent,
-                  child: state is UpdatedActivities
-                      ? ListView.builder(
-                          itemCount: state.activities.length,
-                          itemBuilder: (BuildContext context, index) {
-                            return Text(state.activities[index].toString());
-                          },
-                        )
-                      : Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                );
-              }),
             ),
             AddCalenderItem(
               onAdd: () {

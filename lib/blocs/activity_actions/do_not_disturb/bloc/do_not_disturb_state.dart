@@ -7,7 +7,17 @@ abstract class DoNotDisturbState extends Equatable {
   List<Object> get props => [];
 }
 
-class DoNotDisturbInitial extends DoNotDisturbState {}
+class DoNotDisturbInitial extends DoNotDisturbState {
+  final bool isSilenced;
+
+  DoNotDisturbInitial(this.isSilenced);
+
+  @override
+  List<Object> get props => [isSilenced];
+
+  @override
+  String toString() => 'DoNotDisturbInitial { isSilenced: $isSilenced }';
+}
 
 class SilencedNotifications extends DoNotDisturbState {}
 

@@ -10,3 +10,5 @@ abstract class DoNotDisturbEvent extends Equatable {
 class SilenceNotifications extends DoNotDisturbEvent {}
 
 class TurnOffSilentNotificatins extends DoNotDisturbEvent {}
+
+class CheckSilenceNotificationStatus extends DoNotDisturbEvent {}

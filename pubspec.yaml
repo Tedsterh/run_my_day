@@ -48,6 +48,7 @@ dependencies:
   datetime_picker_formfield: ^1.0.0
   uuid: ^2.1.0
   flutter_dnd: ^0.1.2
+  timeago: ^2.0.26
 
 dev_dependencies:
   flutter_test:

@@ -4,13 +4,16 @@ class IosSilenceNotificationsRepository extends SilenceNotificationsRepository {
   @override
   Future<void> disableSilence() {
     // TODO: implement disableSilence
-    throw UnimplementedError();
   }
 
   @override
   Future<void> enableSilence() {
     // TODO: implement enableSilence
-    throw UnimplementedError();
   }
 
+  @override
+  Future<bool> isDndActive() async {
+    // TODO: implement isDndActive
+    return false;
+  }
 }

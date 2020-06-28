@@ -17,7 +17,7 @@ class DoNotDisturbBloc extends Bloc<DoNotDisturbEvent, DoNotDisturbState> {
         _notificationsRepository = notificationsRepository;
 
   @override
-  DoNotDisturbState get initialState => DoNotDisturbInitial();
+  DoNotDisturbState get initialState => DoNotDisturbInitial(false);
 
   @override
   Stream<DoNotDisturbState> mapEventToState(DoNotDisturbEvent event) async* {
@@ -25,6 +25,8 @@ class DoNotDisturbBloc extends Bloc<DoNotDisturbEvent, DoNotDisturbState> {
       yield* _mapSilenceNotificationsToState(event);
     } else if (event is TurnOffSilentNotificatins) {
       yield* _mapTurnOffSilentNotificatinsToState(event);
+    } else if (event is CheckSilenceNotificationStatus) {
+      yield* _mapCheckSilenceNotificationStatusToState(event);
     }
   }
 
@@ -38,5 +40,11 @@ class DoNotDisturbBloc extends Bloc<DoNotDisturbEvent, DoNotDisturbState> {
       TurnOffSilentNotificatins event) async* {
     await _notificationsRepository.disableSilence();
     yield TurnedOffSilentNotifications();
+  }
+
+  Stream<DoNotDisturbState> _mapCheckSilenceNotificationStatusToState(
+      CheckSilenceNotificationStatus event) async* {
+    bool isActive = await _notificationsRepository.isDndActive();
+    yield DoNotDisturbInitial(isActive);
   }
 }
