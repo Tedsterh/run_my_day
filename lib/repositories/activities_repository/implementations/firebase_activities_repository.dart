@@ -179,4 +179,29 @@ class FirebaseActivitiesRepository extends ActivitiesRepository {
         .document(activityID)
         .updateData({'endTime': endTime});
   }
+
+  @override
+  Future<void> defereTillNextWeek({String activityID, DateTime current, DateTime nextMonday}) async {
+    String date = DateFormat('yyyy-MM-dd').format(current);
+    var activity = await activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(date)
+        .document(activityID)
+        .get();
+    await activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(date)
+        .document(activityID)
+        .delete();
+    String newDate =
+        DateFormat('yyyy-MM-dd').format(nextMonday);
+    return activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(newDate)
+        .document(activityID)
+        .setData(activity.data);
+  }
 }

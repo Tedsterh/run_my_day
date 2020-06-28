@@ -21,6 +21,9 @@ abstract class ActivitiesRepository {
   Future<void> defereTillTomorrow(
       {@required String activityID, @required DateTime currentDate});
 
+  Future<void> defereTillNextWeek(
+      {@required String activityID, @required DateTime current, @required DateTime nextMonday});
+
   Future<void> addAgainTomorrow(
       {@required String activityID, @required DateTime currentDate});
 

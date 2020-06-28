@@ -11,7 +11,7 @@ import 'package:run_my_lockdown/repositories/activities_repository/implementatio
 class HomePageBuilder extends StatelessWidget {
   final CurrentUserModel currentUserModel;
 
-  const HomePageBuilder({Key key, @required this.currentUserModel})
+  HomePageBuilder({Key key, @required this.currentUserModel})
       : super(key: key);
 
   static Widget create(context,
@@ -39,12 +39,19 @@ class HomePageBuilder extends StatelessWidget {
     );
   }
 
+  ValueNotifier<DateTime> date = ValueNotifier(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     Widget child = Builder(builder: (context) {
-      return HomePage(
-        openDrawer: () => SlidingMenuDrawer.of(context).toggle(),
-      );
+      return ValueListenableBuilder<DateTime>(
+          valueListenable: date,
+          builder: (context, current, child) {
+            return HomePage(
+              openDrawer: () => SlidingMenuDrawer.of(context).toggle(),
+              currentLookingAt: current,
+            );
+          });
     });
     child = SlidingMenuDrawer(
       child: child,
@@ -56,6 +63,7 @@ class HomePageBuilder extends StatelessWidget {
             .add(GetActiveActivities(newDate));
         BlocProvider.of<CompletedActivitiesBloc>(context)
             .add(GetCompletedActivities(newDate));
+        date.value = newDate;
       },
     );
     return child;

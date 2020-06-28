@@ -6,7 +6,10 @@ import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activi
 class ActiveActivityListBuilder extends StatelessWidget {
   const ActiveActivityListBuilder({
     Key key,
+    @required this.currentLookingAt
   }) : super(key: key);
+
+  final DateTime currentLookingAt;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,7 @@ class ActiveActivityListBuilder extends StatelessWidget {
                 itemBuilder: (BuildContext context, index) {
                   if (index != 0) {
                     return ActiveActivityCard(
-                      activityModel: state.activities[index - 1]
-                    );
+                        activityModel: state.activities[index - 1], currentLookingAt: currentLookingAt);
                   }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

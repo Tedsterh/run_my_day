@@ -13,8 +13,9 @@ import 'package:run_my_lockdown/pages/home_page/widgets/custom_app_bar.dart';
 import 'package:run_my_lockdown/repositories/activities_repository/implementations/firebase_activities_repository.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key, this.openDrawer}) : super(key: key);
+  const HomePage({Key key, this.openDrawer, @required this.currentLookingAt}) : super(key: key);
   final VoidCallback openDrawer;
+  final DateTime currentLookingAt;
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +32,15 @@ class HomePage extends StatelessWidget {
               left: 0,
               child: ListView(
                 children: <Widget>[
-                  ActivityListBuilder(),
-                  ActiveActivityListBuilder(),
-                  CompletedActivityListBuilder()
+                  ActivityListBuilder(
+                    currentLookingAt: currentLookingAt
+                  ),
+                  ActiveActivityListBuilder(
+                    currentLookingAt: currentLookingAt
+                  ),
+                  CompletedActivityListBuilder(
+                    currentLookingAt: currentLookingAt
+                  )
                 ],
               ),
             ),

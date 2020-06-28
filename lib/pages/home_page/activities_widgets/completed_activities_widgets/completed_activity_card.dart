@@ -13,9 +13,10 @@ import 'package:run_my_lockdown/repositories/silence_notifications_repository/im
 import 'package:run_my_lockdown/repositories/silence_notifications_repository/implementations/ios_silence_notifications_repository.dart';
 
 class CompletedActivityCard extends StatefulWidget {
-  const CompletedActivityCard({Key key, @required this.activityModel})
+  const CompletedActivityCard({Key key, @required this.activityModel, @required this.currentLookingAt})
       : super(key: key);
   final ActivityModel activityModel;
+  final DateTime currentLookingAt;
 
   @override
   _CompletedActivityCardState createState() => _CompletedActivityCardState();
@@ -86,6 +87,7 @@ class _CompletedActivityCardState extends State<CompletedActivityCard>
                     }),
                 ActivityExpansionTile(
                   key: key,
+                  currentLookingAt: widget.currentLookingAt,
                   onExpansionChanged: (value) {
                     if (value) {
                       _animationController.forward();

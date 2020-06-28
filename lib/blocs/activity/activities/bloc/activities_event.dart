@@ -60,3 +60,12 @@ class DefereTillTomorrow extends ActivitiesEvent {
   @override
   List<Object> get props => [activityModel];
 }
+
+class DefereTillNextMonday extends ActivitiesEvent {
+  final ActivityModel activityModel;
+
+  DefereTillNextMonday(this.activityModel);
+
+  @override
+  List<Object> get props => [activityModel];
+}

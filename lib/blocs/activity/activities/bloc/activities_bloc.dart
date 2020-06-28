@@ -41,6 +41,8 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       yield* _mapStartInAnHourToState(event);
     } else if (event is DefereTillTomorrow) {
       yield* _mapDefereTillTomorrowToState(event);
+    } else if (event is DefereTillNextMonday) {
+      yield* _mapDefereTillNextMonday(event);
     }
   }
 
@@ -84,8 +86,15 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
 
   Stream<ActivitiesState> _mapDefereTillTomorrowToState(
       DefereTillTomorrow event) async* {
-    DateTime now = DateTime.now().add(Duration(hours: 1));
+    DateTime now = DateTime.now();
     _activitiesRepository.defereTillTomorrow(
         activityID: event.activityModel.eventID, currentDate: now);
+  }
+
+  Stream<ActivitiesState> _mapDefereTillNextMonday(
+      DefereTillNextMonday event) async* {
+    DateTime now = DateTime.now();
+    _activitiesRepository.defereTillNextWeek(
+        activityID: event.activityModel.eventID, current: now, nextMonday: now.add(Duration(days: 7 - (now.weekday - 1))));
   }
 }

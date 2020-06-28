@@ -8,6 +8,7 @@ class NeumorphicExpansionTile extends StatelessWidget {
   const NeumorphicExpansionTile({
     Key key,
     @required this.globalKey,
+    @required this.currentLookingAt,
     @required AnimationController animationController,
     @required this.widget,
   })  : _animationController = animationController,
@@ -16,11 +17,13 @@ class NeumorphicExpansionTile extends StatelessWidget {
   final GlobalKey<ActivityExpansionTileState> globalKey;
   final AnimationController _animationController;
   final ActiveActivityCard widget;
+  final DateTime currentLookingAt;
 
   @override
   Widget build(BuildContext context) {
     return ActivityExpansionTile(
       key: key,
+      currentLookingAt: currentLookingAt,
       onExpansionChanged: (value) {
         if (value) {
           _animationController.forward();

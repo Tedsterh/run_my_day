@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 const Duration _kExpand = const Duration(milliseconds: 200);
 
@@ -173,6 +174,7 @@ class ActivityExpansionTile extends StatefulWidget {
     this.onExpansionChanged,
     this.children: const <Widget>[],
     this.trailing,
+    @required this.currentLookingAt,
     this.initiallyExpanded: false,
   })  : assert(initiallyExpanded != null),
         super(key: key);
@@ -184,6 +186,7 @@ class ActivityExpansionTile extends StatefulWidget {
   final Color backgroundColor;
   final Widget trailing;
   final bool initiallyExpanded;
+  final DateTime currentLookingAt;
 
   @override
   ActivityExpansionTileState createState() => new ActivityExpansionTileState();
@@ -280,7 +283,7 @@ class ActivityExpansionTileState extends State<ActivityExpansionTile>
                   .copyWith(color: Color(0xFF7D9DFD)),
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                  onTap: toggle,
+                  onTap: DateFormat('yyyy-MM-DD').format(widget.currentLookingAt) == DateFormat('yyyy-MM-DD').format(DateTime.now()) ? () => toggle() : null,
                   child: widget.title),
             ),
           ),

@@ -7,9 +7,10 @@ import 'package:run_my_lockdown/models/models/activity_model/activity_model.dart
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/custom/custom_expanstion_tile.dart';
 
 class AvailableActivityCard extends StatefulWidget {
-  const AvailableActivityCard({Key key, @required this.activityModel})
+  const AvailableActivityCard({Key key, @required this.activityModel, @required this.currentLookingAt})
       : super(key: key);
   final ActivityModel activityModel;
+  final DateTime currentLookingAt;
 
   @override
   _AvailableActivityCardState createState() => _AvailableActivityCardState();
@@ -60,29 +61,27 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
             child: Stack(
               children: <Widget>[
                 AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (context, snapshot) {
-                    return Neumorphic(
-                      style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.only(
-                                  topLeft: Radius.circular(30),
-                                  topRight: Radius.circular(30),
-                                  bottomLeft:
-                                      Radius.circular(30),
-                                  bottomRight:
-                                      Radius.circular(30))),
-                          depth: -30,
-                          intensity: 1.0),
-                      child: Container(
-                        width: double.infinity,
-                        height: heightAnimation.value,
-                      ),
-                    );
-                  }
-                ),
+                    animation: _animationController,
+                    builder: (context, snapshot) {
+                      return Neumorphic(
+                        style: NeumorphicStyle(
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.only(
+                                    topLeft: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                    bottomLeft: Radius.circular(30),
+                                    bottomRight: Radius.circular(30))),
+                            depth: -30,
+                            intensity: 1.0),
+                        child: Container(
+                          width: double.infinity,
+                          height: heightAnimation.value,
+                        ),
+                      );
+                    }),
                 ActivityExpansionTile(
                   key: key,
+                  currentLookingAt: widget.currentLookingAt,
                   onExpansionChanged: (value) {
                     if (value) {
                       _animationController.forward();
@@ -94,9 +93,10 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                     children: <Widget>[
                       Neumorphic(
                         style: NeumorphicStyle(
-                            boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(30)),
-                            shape: NeumorphicShape.concave,),
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(30)),
+                          shape: NeumorphicShape.concave,
+                        ),
                         child: Container(
                           height: 60,
                           width: MediaQuery.of(context).size.width,
@@ -120,7 +120,8 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                                     ],
                                   ),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
                                         widget.activityModel.eventName,
@@ -131,10 +132,12 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                                   ),
                                   Spacer(),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        _printDuration(widget.activityModel.duration),
+                                        _printDuration(
+                                            widget.activityModel.duration),
                                         style: TextStyle(fontSize: 22),
                                       ),
                                       SizedBox(width: 30),
@@ -153,9 +156,10 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                       height: 60,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(30))
-                        ),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(30))),
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           physics: ClampingScrollPhysics(),
@@ -167,7 +171,8 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                               },
                               child: NeumorphicText(
                                 'Start now',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
+                                style:
+                                    NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             ),
                             FlatButton(
@@ -177,24 +182,30 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                               },
                               child: NeumorphicText(
                                 'Start in an hour',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
+                                style:
+                                    NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             ),
                             FlatButton(
                               onPressed: () {
-                                BlocProvider.of<ActivitiesBloc>(context)
-                                    .add(DefereTillTomorrow(widget.activityModel));
+                                BlocProvider.of<ActivitiesBloc>(context).add(
+                                    DefereTillTomorrow(widget.activityModel));
                               },
                               child: NeumorphicText(
                                 'Defer till tomorrow',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
+                                style:
+                                    NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             ),
                             FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                BlocProvider.of<ActivitiesBloc>(context).add(
+                                    DefereTillNextMonday(widget.activityModel));
+                              },
                               child: NeumorphicText(
                                 'Defer till next week',
-                                style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
+                                style:
+                                    NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             )
                           ],

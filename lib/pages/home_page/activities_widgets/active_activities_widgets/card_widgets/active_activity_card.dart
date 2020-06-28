@@ -6,9 +6,10 @@ import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activi
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/custom/custom_expanstion_tile.dart';
 
 class ActiveActivityCard extends StatefulWidget {
-  const ActiveActivityCard({Key key, @required this.activityModel})
+  const ActiveActivityCard({Key key, @required this.activityModel, @required this.currentLookingAt})
       : super(key: key);
   final ActivityModel activityModel;
+  final DateTime currentLookingAt;
 
   @override
   _ActiveActivityCardState createState() => _ActiveActivityCardState();
@@ -58,7 +59,8 @@ class _ActiveActivityCardState extends State<ActiveActivityCard>
                 NeumorphicExpansionTile(
                     globalKey: key,
                     animationController: _animationController,
-                    widget: widget),
+                    widget: widget,
+                    currentLookingAt: widget.currentLookingAt),
               ],
             ),
           )),

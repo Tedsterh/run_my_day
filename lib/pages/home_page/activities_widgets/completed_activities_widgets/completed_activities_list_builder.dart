@@ -6,7 +6,10 @@ import 'package:run_my_lockdown/pages/home_page/activities_widgets/completed_act
 class CompletedActivityListBuilder extends StatelessWidget {
   const CompletedActivityListBuilder({
     Key key,
+    @required this.currentLookingAt
   }) : super(key: key);
+
+  final DateTime currentLookingAt;
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +24,20 @@ class CompletedActivityListBuilder extends StatelessWidget {
                 itemBuilder: (BuildContext context, index) {
                   if (index != 0) {
                     return CompletedActivityCard(
-                        activityModel: state.activities[index - 1]);
+                        activityModel: state.activities[index - 1], currentLookingAt: currentLookingAt);
                   }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: 50,),
+                      SizedBox(
+                        height: 50,
+                      ),
                       Row(
                         children: <Widget>[
                           SizedBox(width: 30),
                           Text(
                             'Completed Activities',
-                            style: TextStyle(
-                              fontSize: 18
-                            ),
+                            style: TextStyle(fontSize: 18),
                           ),
                         ],
                       ),
