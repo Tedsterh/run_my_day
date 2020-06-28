@@ -103,7 +103,7 @@ class ActivityEntity {
       'eventID': eventID,
       'description': description,
       'duration': duration.inSeconds,
-      'eventLocation' : GeoPoint(eventLocation.latitude, eventLocation.longitude)
+      'eventLocation' : eventLocation != null ? GeoPoint(eventLocation.latitude, eventLocation.longitude) : null
     };
   }
 }

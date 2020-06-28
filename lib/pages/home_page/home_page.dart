@@ -45,8 +45,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             CustomAppBar(
-              title: 'Todays Agenda',
               onPressed: () => openDrawer(),
+              currentDate: currentLookingAt,
             ),
             AddCalenderItem(
               onAdd: () {

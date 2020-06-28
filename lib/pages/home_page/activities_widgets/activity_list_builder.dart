@@ -19,6 +19,7 @@ class ActivityListBuilder extends StatelessWidget {
             ? ListView.builder(
                 itemCount: state.activities.length + 1,
                 shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (BuildContext context, index) {
                   if (index != 0) {
                     return AvailableActivityCard(

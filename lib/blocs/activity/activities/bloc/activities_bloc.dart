@@ -78,6 +78,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
 
   Stream<ActivitiesState> _mapStartInAnHourToState(StartInAnHour event) async* {
     DateTime now = DateTime.now().add(Duration(hours: 1));
+    // TODO: local notification
     _activitiesRepository.startInAnHour(
         activityID: event.activityModel.eventID,
         startTime: now,
