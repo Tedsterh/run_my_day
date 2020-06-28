@@ -41,6 +41,7 @@ class MovieSearchBloc extends Bloc<MovieSearchEvent, MovieSearchState> {
 
   Stream<MovieSearchState> _mapGetMovieDetailsToState(
       GetMovieDetails event) async* {
+    await _tmdbRepository.initialise();
     yield FoundMovie(
       movie: await _tmdbRepository.getMovieDetails(event.movieId),
     );

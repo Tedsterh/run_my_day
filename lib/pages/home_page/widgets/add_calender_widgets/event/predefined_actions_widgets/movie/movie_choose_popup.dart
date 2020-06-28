@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:run_my_lockdown/blocs/movie_search/movie_search_bloc.dart';
 import 'package:run_my_lockdown/repositories/tmdb_repository/tmdb_repository.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class MovieTimePopup extends StatelessWidget {
   MovieTimePopup({Key key}) : super(key: key);
@@ -138,8 +139,32 @@ class MovieTimePopup extends StatelessWidget {
                                                 movieID.value = state
                                                     .matchingMovies[index].id;
                                               },
-                                              title: Text(state
-                                                  .matchingMovies[index].title),
+                                              title: Wrap(
+                                                direction: Axis.horizontal,
+                                                children: <Widget>[
+                                                  Text(state
+                                                      .matchingMovies[index]
+                                                      .title),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  SmoothStarRating(
+                                                      starCount: 5,
+                                                      rating: (state
+                                                                  .matchingMovies[
+                                                                      index]
+                                                                  .voteAverage *
+                                                              10 /
+                                                              100) *
+                                                          5,
+                                                      size: 15.0,
+                                                      isReadOnly: true,
+                                                      color: Colors.orange,
+                                                      borderColor:
+                                                          Colors.orange,
+                                                      spacing: 0.0),
+                                                ],
+                                              ),
                                               trailing: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(5),

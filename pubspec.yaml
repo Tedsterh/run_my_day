@@ -57,6 +57,7 @@ dependencies:
   shared_preferences: ^0.5.7+3
   darksky_weather: ^1.4.0+1
   tmdb_dart: ^0.1.1
+  smooth_star_rating: ^1.1.1
 
 dev_dependencies:
   flutter_test:

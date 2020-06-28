@@ -36,6 +36,7 @@ class NeumorphicMainCardDetails extends StatelessWidget {
           children: <Widget>[
             TitleDetails(widget: widget),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   flex: 4,

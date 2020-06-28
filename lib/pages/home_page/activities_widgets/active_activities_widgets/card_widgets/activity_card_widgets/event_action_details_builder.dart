@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:run_my_lockdown/models/models/activity_model/activity_model.dart';
 import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activities_widgets/card_widgets/activity_card_widgets/event_details_google_map.dart';
+import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activities_widgets/card_widgets/activity_card_widgets/event_details_movie_card.dart';
 
 class EventActionDetails extends StatelessWidget {
   const EventActionDetails({Key key, @required this.activityModel})
@@ -15,6 +16,15 @@ class EventActionDetails extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(right: 20.0),
           child: EventLocationGoogleMap(location: activityModel.eventLocation),
+        ),
+      );
+    }
+    if (activityModel.eventActions.contains('movieTime')) {
+      return Expanded(
+        flex: 2,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: EventMovieDetails.create(context, movieID: activityModel.movieID),
         ),
       );
     }
