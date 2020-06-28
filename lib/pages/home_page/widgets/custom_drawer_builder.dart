@@ -7,8 +7,11 @@ import 'package:run_my_lockdown/pages/home_page/widgets/drawer.dart';
 class SlidingMenuDrawer extends StatefulWidget {
   final Widget child;
   final CurrentUserModel currentUserModel;
+  final Function(DateTime) changeDate;
 
-  const SlidingMenuDrawer({Key key, this.child, @required this.currentUserModel}) : super(key: key);
+  const SlidingMenuDrawer(
+      {Key key, this.child, @required this.currentUserModel, @required this.changeDate})
+      : super(key: key);
 
   static SlidingMenuDrawerState of(BuildContext context) =>
       context.findAncestorStateOfType<SlidingMenuDrawerState>();
@@ -63,7 +66,11 @@ class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
                       ..setEntry(3, 2, 0.001)
                       ..rotateY(math.pi / 2 * (1 - animationController.value)),
                     alignment: Alignment.centerRight,
-                    child: SlidingDrawer(currentUserModel: widget.currentUserModel, closeDrawer: toggle,),
+                    child: SlidingDrawer(
+                      currentUserModel: widget.currentUserModel,
+                      closeDrawer: toggle,
+                      changeDate: widget.changeDate
+                    ),
                   ),
                 ),
                 Transform.translate(

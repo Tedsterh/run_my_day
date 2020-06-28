@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/custom/custom_expanstion_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/do_not_disturb.dart';
+import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/location.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/track_walk.dart';
 
 class AddPredefinedActions extends StatefulWidget {
   AddPredefinedActions({
     Key key,
     @required this.scrollController,
-    @required this.actionList
+    @required this.actionList,
+    @required this.eventLocation
   }) : super(key: key);
   final ScrollController scrollController;  
   final ValueNotifier<List<String>> actionList;
+  final ValueNotifier<LatLng> eventLocation;
 
   @override
   _AddPredefinedActionsState createState() => _AddPredefinedActionsState();
@@ -65,6 +69,10 @@ class _AddPredefinedActionsState extends State<AddPredefinedActions> {
             ),
             TrackWalkAction(
               actionList: widget.actionList
+            ),
+            LocationAction(
+              actionList: widget.actionList,
+              eventLocation: widget.eventLocation,
             )
           ],
         ),

@@ -48,7 +48,7 @@ class ActivitiesBloc extends Bloc<ActivitiesEvent, ActivitiesState> {
       GetAvailableActivities event) async* {
     _activitiesSubscription?.cancel();
     _activitiesSubscription = _activitiesRepository
-        .getAvailableActivities(currentDate: DateTime.now())
+        .getAvailableActivities(currentDate: event.currentDate)
         .listen((activities) {
       add(AvailableActivitiesUpdated(activities));
     });

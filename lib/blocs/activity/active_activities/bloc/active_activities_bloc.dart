@@ -35,6 +35,8 @@ class ActiveActivitiesBloc
       yield* _mapGetActiveActivitiesToState(event);
     } else if (event is ActiveActivitiesUpdated) {
       yield* _mapActiveActivitiesUpdatedToState(event);
+    } else if (event is EndEarly) {
+      yield* _mapEndEarlyToState(event);
     }
   }
 
@@ -42,7 +44,7 @@ class ActiveActivitiesBloc
       GetActiveActivities event) async* {
     _activitySubscription?.cancel();
     _activitySubscription = _activitiesRepository
-        .getCurrentActiveActivities(currentDate: DateTime.now())
+        .getCurrentActiveActivities(currentDate: event.currentDate)
         .listen((activities) {
       add(ActiveActivitiesUpdated(activities));
     });
@@ -51,5 +53,10 @@ class ActiveActivitiesBloc
   Stream<ActiveActivitiesState> _mapActiveActivitiesUpdatedToState(
       ActiveActivitiesUpdated event) async* {
     yield UpdatedActiveActivities(event.activities);
+  }
+
+  Stream<ActiveActivitiesState> _mapEndEarlyToState(EndEarly event) async* {
+    _activitiesRepository.endEarly(
+        activityID: event.activityID, endTime: DateTime.now().subtract(Duration(minutes: 2)));
   }
 }

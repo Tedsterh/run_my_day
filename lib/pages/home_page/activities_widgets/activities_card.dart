@@ -152,7 +152,10 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                     SizedBox(
                       height: 60,
                       child: Container(
-                        color: Colors.transparent,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(30))
+                        ),
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           physics: ClampingScrollPhysics(),
@@ -183,14 +186,14 @@ class _AvailableActivityCardState extends State<AvailableActivityCard>
                                     .add(DefereTillTomorrow(widget.activityModel));
                               },
                               child: NeumorphicText(
-                                'Defere till tomorrow',
+                                'Defer till tomorrow',
                                 style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             ),
                             FlatButton(
                               onPressed: () {},
                               child: NeumorphicText(
-                                'Defere till next week',
+                                'Defer till next week',
                                 style: NeumorphicStyle(color: Color(0xFF7D9DFD)),
                               ),
                             )

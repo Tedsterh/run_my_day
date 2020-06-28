@@ -96,7 +96,8 @@ class FirebaseActivitiesRepository extends ActivitiesRepository {
   }
 
   @override
-  Stream<List<ActivityModel>> getCurrentActiveActivities({DateTime currentDate}) {
+  Stream<List<ActivityModel>> getCurrentActiveActivities(
+      {DateTime currentDate}) {
     String date = DateFormat('yyyy-MM-dd').format(currentDate);
     return activityCollection
         .collection('users')
@@ -115,5 +116,67 @@ class FirebaseActivitiesRepository extends ActivitiesRepository {
       }
       return list;
     });
+  }
+
+  @override
+  Stream<List<ActivityModel>> getCompletedActivities({DateTime currentDate}) {
+    String date = DateFormat('yyyy-MM-dd').format(currentDate);
+    return activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(date)
+        .orderBy('startTime', descending: true)
+        .snapshots()
+        .map((snapshots) {
+      List<ActivityModel> list = [];
+      for (var i = 0; i < snapshots.documents.length; i++) {
+        var activity = ActivityModel.fromEntity(
+            ActivityEntity.fromSnapshot(snapshots.documents[i]));
+        if (activity.endTime != null &&
+            activity.endTime.isBefore(currentDate)) {
+          list.add(activity);
+        }
+      }
+      return list;
+    });
+  }
+
+  @override
+  Future<void> addAgainTomorrow(
+      {String activityID, DateTime currentDate}) async {
+    String date = DateFormat('yyyy-MM-dd').format(currentDate);
+    ActivityModel activity = ActivityModel.fromEntity(
+        ActivityEntity.fromSnapshot(await activityCollection
+            .collection('users')
+            .document(userID)
+            .collection(date)
+            .document(activityID)
+            .get()));
+    String newDate =
+        DateFormat('yyyy-MM-dd').format(currentDate.add(Duration(days: 1)));
+    ActivityModel newActivity = ActivityModel(
+        eventID: activity.eventID,
+        description: activity.description,
+        duration: activity.duration,
+        eventActions: activity.eventActions,
+        eventName: activity.eventName,
+        iconName: activity.iconName);
+    return activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(newDate)
+        .document(activityID)
+        .setData(newActivity.toEntity().toDocument());
+  }
+
+  @override
+  Future<void> endEarly({String activityID, DateTime endTime}) {
+    String date = DateFormat('yyyy-MM-dd').format(endTime);
+    return activityCollection
+        .collection('users')
+        .document(userID)
+        .collection(date)
+        .document(activityID)
+        .updateData({'endTime': endTime});
   }
 }

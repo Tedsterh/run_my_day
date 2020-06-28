@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:meta/meta.dart';
 import 'package:run_my_lockdown/models/entities/activity_entity/activity_entity.dart';
 
@@ -11,6 +12,7 @@ class ActivityModel {
   final List<String> eventActions;
   final String eventID;
   final Duration duration;
+  final LatLng eventLocation;
 
   ActivityModel(
       {this.startTime,
@@ -20,7 +22,8 @@ class ActivityModel {
       this.description,
       this.eventActions,
       this.eventID,
-      this.duration});
+      this.duration,
+      this.eventLocation});
 
   ActivityModel copyWith(
       {DateTime startTime,
@@ -30,7 +33,8 @@ class ActivityModel {
       String description,
       List<String> eventActions,
       String eventID,
-      Duration duration}) {
+      Duration duration,
+      LatLng eventLocation}) {
     return ActivityModel(
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
@@ -39,7 +43,8 @@ class ActivityModel {
         description: description ?? this.description,
         eventActions: eventActions ?? this.eventActions,
         eventID: eventID ?? this.eventID,
-        duration: duration ?? this.duration);
+        duration: duration ?? this.duration,
+        eventLocation: eventLocation ?? this.eventLocation);
   }
 
   @override
@@ -51,7 +56,8 @@ class ActivityModel {
       description.hashCode ^
       eventActions.hashCode ^
       eventID.hashCode ^
-      duration.hashCode;
+      duration.hashCode ^
+      eventLocation.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -65,16 +71,17 @@ class ActivityModel {
           description == other.description &&
           eventActions == other.eventActions &&
           eventID == other.eventID &&
-          duration == other.duration;
+          duration == other.duration &&
+          eventLocation == other.eventLocation;
 
   @override
   String toString() {
-    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration }';
+    return 'ActivityModel { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation }';
   }
 
   ActivityEntity toEntity() {
     return ActivityEntity(startTime, endTime, iconName, eventName, description,
-        eventActions, eventID, duration);
+        eventActions, eventID, duration, eventLocation);
   }
 
   static ActivityModel fromEntity(ActivityEntity entity) {
@@ -86,6 +93,7 @@ class ActivityModel {
         description: entity.description,
         eventActions: entity.eventActions,
         eventID: entity.eventID,
-        duration: entity.duration);
+        duration: entity.duration,
+        eventLocation: entity.eventLocation);
   }
 }

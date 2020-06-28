@@ -3,8 +3,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TodaysAgendaTile extends StatelessWidget {
-  const TodaysAgendaTile({
+class TomorrowsAgendaTile extends StatelessWidget {
+  const TomorrowsAgendaTile({
     Key key,
     @required this.onPressed
   }) : super(key: key);
@@ -15,14 +15,14 @@ class TodaysAgendaTile extends StatelessWidget {
     return ListTile(
       onTap: onPressed,
       leading: NeumorphicIcon(
-        FontAwesome.calendar,
+        FontAwesome.calendar_plus_o,
         size: 30,
         style: NeumorphicStyle(
           shadowLightColor: Color(0xFFD4DFFF),
         ),
       ),
       title: NeumorphicText(
-        'Today\'s Agenda',
+        'Tomorrow\'s Agenda',
         textAlign: TextAlign.start,
         style: NeumorphicStyle(
           shadowLightColor: Color(0xFFD4DFFF),

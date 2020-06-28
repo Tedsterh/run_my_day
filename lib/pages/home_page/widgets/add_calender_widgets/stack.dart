@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:run_my_lockdown/models/models/activity_model/activity_model.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/event_description.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/event_name.dart';
@@ -23,6 +24,7 @@ class _StackWidgetState extends State<StackWidget> {
   ValueNotifier<String> eventTitle = ValueNotifier('');
   ValueNotifier<String> descriptions = ValueNotifier('');
   ValueNotifier<String> icon = ValueNotifier('');
+  final ValueNotifier<LatLng> eventLocation = ValueNotifier(null);
   final ValueNotifier<List<String>> actionList = ValueNotifier([]);
   final ScrollController _scrollController = ScrollController();
 
@@ -43,7 +45,7 @@ class _StackWidgetState extends State<StackWidget> {
           controller: _scrollController,
           children: <Widget>[
             Container(
-              height: 550,
+              height: 600,
               child: Stack(
                 children: <Widget>[
                   ChooseIconWidget(icon: icon),
@@ -62,6 +64,7 @@ class _StackWidgetState extends State<StackWidget> {
                         AddPredefinedActions(
                           scrollController: _scrollController,
                           actionList: actionList,
+                          eventLocation: eventLocation,
                         ),
                         EventActionsAdd(
                           onAdd: () {
@@ -71,7 +74,8 @@ class _StackWidgetState extends State<StackWidget> {
                                 iconName: icon.value,
                                 description: descriptions.value,
                                 eventActions: actionList.value,
-                                eventName: eventTitle.value));
+                                eventName: eventTitle.value,
+                                eventLocation: eventLocation.value));
                           },
                           reset: widget.reset,
                         ),

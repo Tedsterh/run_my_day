@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ActivityEntity {
   final DateTime startTime;
@@ -9,9 +10,18 @@ class ActivityEntity {
   final List<String> eventActions;
   final String eventID;
   final Duration duration;
+  final LatLng eventLocation;
 
-  ActivityEntity(this.startTime, this.endTime, this.iconName, this.eventName,
-      this.description, this.eventActions, this.eventID, this.duration);
+  ActivityEntity(
+      this.startTime,
+      this.endTime,
+      this.iconName,
+      this.eventName,
+      this.description,
+      this.eventActions,
+      this.eventID,
+      this.duration,
+      this.eventLocation);
 
   @override
   int get hashCode =>
@@ -22,7 +32,8 @@ class ActivityEntity {
       description.hashCode ^
       eventActions.hashCode ^
       eventID.hashCode ^
-      duration.hashCode;
+      duration.hashCode ^
+      eventLocation.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -36,7 +47,8 @@ class ActivityEntity {
           description == other.description &&
           eventActions == other.eventActions &&
           eventID == other.eventID &&
-          duration == other.duration;
+          duration == other.duration &&
+          eventLocation == other.eventLocation;
 
   Map<String, Object> toJson() {
     return {
@@ -47,13 +59,14 @@ class ActivityEntity {
       'description': description,
       'eventActions': eventActions,
       'eventID': eventID,
-      'duration' : duration
+      'duration': duration,
+      'eventLocation': eventLocation
     };
   }
 
   @override
   String toString() {
-    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration }';
+    return 'ActivityEntity { startTime: $startTime , endTime: $endTime , iconName: $iconName , eventName: $eventName , description: $description , eventActions: $eventActions , eventID: $eventID , duration: $duration , eventLocation: $eventLocation }';
   }
 
   static ActivityEntity fromSnapshot(DocumentSnapshot snap) {
@@ -71,8 +84,13 @@ class ActivityEntity {
             ? List<String>.from(snap.data['eventActions'])
             : <String>[],
         snap.data['eventID'] != null ? snap.data['eventID'] as String : null,
-        snap.data['duration'] != null ? Duration(seconds: snap.data['duration']) : null
-      );
+        snap.data['duration'] != null
+            ? Duration(seconds: snap.data['duration'])
+            : null,
+        snap.data['eventLocation'] != null
+            ? LatLng(snap.data['eventLocation'].latitude,
+                snap.data['eventLocation'].longitude)
+            : null);
   }
 
   Map<String, Object> toDocument() {
@@ -84,7 +102,8 @@ class ActivityEntity {
       'eventActions': eventActions,
       'eventID': eventID,
       'description': description,
-      'duration' : duration.inSeconds
+      'duration': duration.inSeconds,
+      'eventLocation' : GeoPoint(eventLocation.latitude, eventLocation.longitude)
     };
   }
 }

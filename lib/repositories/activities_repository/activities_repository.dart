@@ -10,16 +10,26 @@ abstract class ActivitiesRepository {
       @required DateTime startTime,
       @required DateTime endTime});
 
+  Future<void> endEarly(
+      {@required String activityID, @required DateTime endTime});
+
   Future<void> startInAnHour(
       {@required String activityID,
       @required DateTime startTime,
       @required DateTime endTime});
 
-  Future<void> defereTillTomorrow({@required String activityID, @required DateTime currentDate});
+  Future<void> defereTillTomorrow(
+      {@required String activityID, @required DateTime currentDate});
+
+  Future<void> addAgainTomorrow(
+      {@required String activityID, @required DateTime currentDate});
 
   Stream<List<ActivityModel>> getAvailableActivities(
       {@required DateTime currentDate});
 
   Stream<List<ActivityModel>> getCurrentActiveActivities(
+      {@required DateTime currentDate});
+
+  Stream<List<ActivityModel>> getCompletedActivities(
       {@required DateTime currentDate});
 }

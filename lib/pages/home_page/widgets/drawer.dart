@@ -4,13 +4,18 @@ import 'package:run_my_lockdown/models/models/current_user_model/current_user_mo
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/profile_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/sign_out_tile.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/todays_agenda.dart';
+import 'package:run_my_lockdown/pages/home_page/widgets/drawer_widgets/tomorrows_agenda.dart';
 
 class SlidingDrawer extends StatelessWidget {
   final CurrentUserModel currentUserModel;
   final VoidCallback closeDrawer;
+  final Function(DateTime) changeDate;
 
   const SlidingDrawer(
-      {Key key, @required this.currentUserModel, @required this.closeDrawer})
+      {Key key,
+      @required this.currentUserModel,
+      @required this.closeDrawer,
+      @required this.changeDate})
       : super(key: key);
 
   @override
@@ -31,7 +36,14 @@ class SlidingDrawer extends StatelessWidget {
                 TodaysAgendaTile(
                   onPressed: () {
                     closeDrawer();
+                    changeDate(DateTime.now());
                   },
+                ),
+                TomorrowsAgendaTile(
+                  onPressed: () {
+                    closeDrawer();
+                    changeDate(DateTime.now().add(Duration(days: 1)));
+                  }
                 ),
                 Spacer(),
                 SignOutDrawerTile(),

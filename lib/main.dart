@@ -104,8 +104,11 @@ class RunMyLockdownApp extends StatelessWidget {
             return SplashScreen();
           }
           if (state is Authenticated) {
-            return HomePageBuilder(
+            return HomePageBuilder.create(
+              context,
+              uid: state.currentUser.userID,
               currentUserModel: state.currentUser,
+              currentDate: DateTime.now()
             );
           }
           return SplashScreen();
