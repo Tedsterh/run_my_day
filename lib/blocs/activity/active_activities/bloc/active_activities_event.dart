@@ -13,7 +13,6 @@ class GetActiveActivities extends ActiveActivitiesEvent {
   GetActiveActivities(this.currentDate);
 
   @override
-  // TODO: implement props
   List<Object> get props => [currentDate];
 }
 

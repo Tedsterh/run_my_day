@@ -2,24 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   CustomAppBar({Key key, this.onPressed, @required this.currentDate})
       : super(key: key);
   final VoidCallback onPressed;
-  String title;
   final DateTime currentDate;
+
+  @override
+  _CustomAppBarState createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  String title;
 
   @override
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
     DateTime tomorrow = DateTime.now().toUtc().add(Duration(days: 1));
 
-    if (DateFormat('yyyy-DD-MM').format(currentDate) == DateFormat('yyyy-DD-MM').format(today))
+    if (DateFormat('yyyy-DD-MM').format(widget.currentDate) == DateFormat('yyyy-DD-MM').format(today))
       title = "Today's Agenda";
-    else if (DateFormat('yyyy-DD-MM').format(currentDate) == DateFormat('yyyy-DD-MM').format(tomorrow))
+    else if (DateFormat('yyyy-DD-MM').format(widget.currentDate) == DateFormat('yyyy-DD-MM').format(tomorrow))
       title = "Tomorrow's Agenda";
     else
-      title = DateFormat.yMMMd().format(currentDate);
+      title = DateFormat.yMMMd().format(widget.currentDate);
 
     return Positioned(
       top: MediaQuery.of(context).viewPadding.top + 10,
@@ -27,7 +33,7 @@ class CustomAppBar extends StatelessWidget {
       child: Row(
         children: <Widget>[
           NeumorphicButton(
-            onPressed: onPressed,
+            onPressed: widget.onPressed,
             style: NeumorphicStyle(
                 boxShape: NeumorphicBoxShape.circle(),
                 shape: NeumorphicShape.concave),

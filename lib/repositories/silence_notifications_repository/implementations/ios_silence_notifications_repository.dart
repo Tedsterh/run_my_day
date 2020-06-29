@@ -2,12 +2,12 @@ import 'package:run_my_lockdown/repositories/silence_notifications_repository/si
 
 class IosSilenceNotificationsRepository extends SilenceNotificationsRepository {
   @override
-  Future<void> disableSilence() {
+  Future<void> disableSilence() async {
     // TODO: implement disableSilence
   }
 
   @override
-  Future<void> enableSilence() {
+  Future<void> enableSilence() async {
     // TODO: implement enableSilence
   }
 
