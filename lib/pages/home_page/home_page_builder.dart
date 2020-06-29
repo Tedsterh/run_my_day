@@ -6,12 +6,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:run_my_lockdown/blocs/activity/active_activities/bloc/active_activities_bloc.dart';
 import 'package:run_my_lockdown/blocs/activity/activities/bloc/activities_bloc.dart';
 import 'package:run_my_lockdown/blocs/activity/completed_activities/bloc/completed_activities_bloc.dart';
+import 'package:run_my_lockdown/blocs/weather/bloc/weather_bloc.dart';
 import 'package:run_my_lockdown/main.dart';
 import 'package:run_my_lockdown/models/models/current_user_model/current_user_model.dart';
 import 'package:run_my_lockdown/pages/home_page/home_page.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/custom_drawer_builder.dart';
 import 'package:run_my_lockdown/repositories/activities_repository/implementations/firebase_activities_repository.dart';
 import 'package:run_my_lockdown/repositories/notification_repository/notification_repository.dart';
+import 'package:run_my_lockdown/repositories/weather_repository/implementations/darksky_weather_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageBuilder extends StatefulWidget {
@@ -43,7 +45,11 @@ class HomePageBuilder extends StatefulWidget {
         BlocProvider<CompletedActivitiesBloc>(
             create: (context) => CompletedActivitiesBloc(
                 activitiesRepository: FirebaseActivitiesRepository(uid))
-              ..add(GetCompletedActivities(currentDate)))
+              ..add(GetCompletedActivities(currentDate))),
+        BlocProvider<WeatherBloc>(
+            create: (context) =>
+                WeatherBloc(weatherRepositorty: DarkskyWeatherRepository())
+                  ..add(GetWeatherForcast(currentDate))),
       ],
       child: HomePageBuilder(
         currentUserModel: currentUserModel,
@@ -133,6 +139,8 @@ class _HomePageBuilderState extends State<HomePageBuilder> {
             .add(GetActiveActivities(newDate));
         BlocProvider.of<CompletedActivitiesBloc>(context)
             .add(GetCompletedActivities(newDate));
+        BlocProvider.of<WeatherBloc>(context)
+            .add(GetWeatherForcast(newDate));
         date.value = newDate;
       },
     );

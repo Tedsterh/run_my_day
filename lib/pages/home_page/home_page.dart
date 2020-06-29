@@ -7,6 +7,7 @@ import 'package:run_my_lockdown/blocs/activity/completed_activities/bloc/complet
 import 'package:run_my_lockdown/pages/home_page/activities_widgets/active_activities_widgets/active_activities_builder.dart';
 import 'package:run_my_lockdown/pages/home_page/activities_widgets/activity_list_builder.dart';
 import 'package:run_my_lockdown/pages/home_page/activities_widgets/completed_activities_widgets/completed_activities_list_builder.dart';
+import 'package:run_my_lockdown/pages/home_page/weather_widgets/weather_forecast_page.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_item.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/calender_item_dialog_box.dart';
 import 'package:run_my_lockdown/pages/home_page/widgets/custom_app_bar.dart';
@@ -32,6 +33,7 @@ class HomePage extends StatelessWidget {
               left: 0,
               child: ListView(
                 children: <Widget>[
+                  WeatherForcastTile(),
                   ActivityListBuilder(
                     currentLookingAt: currentLookingAt
                   ),

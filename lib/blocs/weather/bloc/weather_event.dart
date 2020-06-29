@@ -6,3 +6,12 @@ abstract class WeatherEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetWeatherForcast extends WeatherEvent {
+  final DateTime currentDate;
+
+  GetWeatherForcast(this.currentDate);
+
+  @override
+  List<Object> get props => [currentDate];
+}

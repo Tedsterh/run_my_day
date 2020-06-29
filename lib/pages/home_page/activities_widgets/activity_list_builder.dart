@@ -30,7 +30,7 @@ class ActivityListBuilder extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 50,
+                        height: 20,
                       ),
                       Row(
                         children: <Widget>[
