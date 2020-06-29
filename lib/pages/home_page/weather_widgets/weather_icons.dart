@@ -2,11 +2,11 @@ Map<String, String> icons = {
   'clear-day' : '033-sun.svg',
   'clear-night' : '019-moon.svg',
   'rain' : '005-rain.svg',
-  'snow' : '001-snow.svg',
+  'snow' : '011-snow.svg',
   'sleet' : '017-sleet.svg',
   'wind' : '024-windy.svg',
   'fog' : '037-foggy.svg',
-  'cloudy' : '011-cloud.svg',
+  'cloudy' : '046-cloudy.svg',
   'partly-cloudy-day' : '046-cloudy.svg',
   'partly-cloudy-night' : '020-night.svg',
 };
