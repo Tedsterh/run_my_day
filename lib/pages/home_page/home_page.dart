@@ -31,10 +31,10 @@ class HomePage extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   WeatherForcastTile(),
-                  ActivityListBuilder(
+                  ActiveActivityListBuilder(
                     currentLookingAt: currentLookingAt
                   ),
-                  ActiveActivityListBuilder(
+                  ActivityListBuilder(
                     currentLookingAt: currentLookingAt
                   ),
                   CompletedActivityListBuilder(

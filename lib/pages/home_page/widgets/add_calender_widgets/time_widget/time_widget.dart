@@ -43,6 +43,7 @@ class _SelectTimeTileState extends State<SelectTimeTile> {
                   Duration resultingDuration = await showDurationPicker(
                     context: context,
                     initialTime: widget.duration.value,
+                    snapToMins: 1.0
                   );
                   widget.duration.value = resultingDuration;
                 },
