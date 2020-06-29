@@ -31,7 +31,7 @@ class CompletedActivityListBuilder extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 50,
+                        height: 10,
                       ),
                       Row(
                         children: <Widget>[

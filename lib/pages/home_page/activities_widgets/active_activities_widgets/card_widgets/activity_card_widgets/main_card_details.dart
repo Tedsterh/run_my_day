@@ -56,8 +56,8 @@ class NeumorphicMainCardDetails extends StatelessWidget {
                           builder: (context, snapshot) {
                             return Padding(
                               padding: const EdgeInsets.only(
-                                  left: 30.0, right: 20.0),
-                              child: Row(
+                                  left: 20.0, right: 0.0),
+                              child: Wrap(
                                 children: <Widget>[
                                   Column(
                                     crossAxisAlignment:
@@ -94,7 +94,7 @@ class NeumorphicMainCardDetails extends StatelessWidget {
                                     ],
                                   ),
                                   SizedBox(
-                                    width: 40,
+                                    width: 20,
                                   ),
                                   Column(
                                     crossAxisAlignment:

@@ -27,7 +27,7 @@ class EventMovieDetails extends StatelessWidget {
             intensity: 0.0,
             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20))),
         child: Container(
-          height: 150,
+          height: 160,
           child: BlocBuilder<MovieSearchBloc, MovieSearchState>(
             builder: (BuildContext context, state) {
               if (state is FoundMovie) {
@@ -36,7 +36,7 @@ class EventMovieDetails extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(8),
                       child: Container(
-                        height: 60,
+                        height: 50,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
                         child: ClipRRect(
@@ -48,11 +48,11 @@ class EventMovieDetails extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      padding: const EdgeInsets.only(left: 2.0, right: 2.0),
                       child: Text(
                         state.movie.title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 14),
                       ),
                     ),
                     Padding(
