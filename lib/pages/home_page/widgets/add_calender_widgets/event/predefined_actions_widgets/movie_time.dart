@@ -4,10 +4,14 @@ import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/eve
 
 class MovieTimeAction extends StatelessWidget {
   const MovieTimeAction(
-      {Key key, @required this.actionList, @required this.movieID})
+      {Key key,
+      @required this.actionList,
+      @required this.movieID,
+      @required this.duration})
       : super(key: key);
   final ValueNotifier<List<String>> actionList;
   final ValueNotifier<String> movieID;
+  final ValueNotifier<Duration> duration;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +28,13 @@ class MovieTimeAction extends StatelessWidget {
                       List newList = List<String>.from(actionList.value);
                       newList.add('movieTime');
                       actionList.value = newList;
-                      int _movieID = await showDialog(
+                      List _movieID = await showDialog(
                           context: context,
                           barrierDismissible: true,
                           builder: (BuildContext context) {
                             return MovieTimePopup.create(context);
                           });
-                      movieID.value = _movieID.toString();
+                      movieID.value = _movieID[0].toString();
                     } else {
                       List newList = List<String>.from(actionList.value);
                       newList.remove('movieTime');

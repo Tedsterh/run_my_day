@@ -8,17 +8,18 @@ import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/eve
 import 'package:run_my_lockdown/pages/home_page/widgets/add_calender_widgets/event/predefined_actions_widgets/track_walk.dart';
 
 class AddPredefinedActions extends StatefulWidget {
-  AddPredefinedActions({
-    Key key,
-    @required this.scrollController,
-    @required this.actionList,
-    @required this.eventLocation,
-    @required this.movieID
-  }) : super(key: key);
-  final ScrollController scrollController;  
+  AddPredefinedActions(
+      {Key key,
+      @required this.scrollController,
+      @required this.actionList,
+      @required this.eventLocation,
+      @required this.movieID, @required this.duration})
+      : super(key: key);
+  final ScrollController scrollController;
   final ValueNotifier<List<String>> actionList;
   final ValueNotifier<LatLng> eventLocation;
   final ValueNotifier<String> movieID;
+  final ValueNotifier<Duration> duration;
 
   @override
   _AddPredefinedActionsState createState() => _AddPredefinedActionsState();
@@ -39,40 +40,38 @@ class _AddPredefinedActionsState extends State<AddPredefinedActions> {
           key: expansionTile,
           title: Text(
             'Add Actions',
-            style: TextStyle(
-              fontSize: 20
-            ),
+            style: TextStyle(fontSize: 20),
           ),
           trailing: ValueListenableBuilder<bool>(
-            valueListenable: switchNotfier,
-            builder: (context, switchNotification, child) {
-              return NeumorphicSwitch(
-                value: switchNotification,
-                height: 30,
-                onChanged: (value) {
-                  switchNotfier.value = value;
-                  if (value) {
-                    expansionTile.currentState.expand();
-                    if (widget.scrollController.hasClients) {
-                      widget.scrollController.animateTo(widget.scrollController.position.maxScrollExtent, duration: Duration(milliseconds: 300), curve: Curves.bounceIn);
+              valueListenable: switchNotfier,
+              builder: (context, switchNotification, child) {
+                return NeumorphicSwitch(
+                  value: switchNotification,
+                  height: 30,
+                  onChanged: (value) {
+                    switchNotfier.value = value;
+                    if (value) {
+                      expansionTile.currentState.expand();
+                      if (widget.scrollController.hasClients) {
+                        widget.scrollController.animateTo(
+                            widget.scrollController.position.maxScrollExtent,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.bounceIn);
+                      }
+                    } else {
+                      expansionTile.currentState.collapse();
+                      if (widget.scrollController.hasClients) {
+                        widget.scrollController.animateTo(0,
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.bounceIn);
+                      }
                     }
-                  } else {
-                    expansionTile.currentState.collapse();
-                    if (widget.scrollController.hasClients) {
-                      widget.scrollController.animateTo(0, duration: Duration(milliseconds: 300), curve: Curves.bounceIn);
-                    }
-                  }
-                },
-              );
-            }
-          ),
+                  },
+                );
+              }),
           children: <Widget>[
-            DoNotDisturbAction(
-              actionList: widget.actionList
-            ),
-            TrackWalkAction(
-              actionList: widget.actionList
-            ),
+            DoNotDisturbAction(actionList: widget.actionList),
+            TrackWalkAction(actionList: widget.actionList),
             LocationAction(
               actionList: widget.actionList,
               eventLocation: widget.eventLocation,
@@ -80,6 +79,7 @@ class _AddPredefinedActionsState extends State<AddPredefinedActions> {
             MovieTimeAction(
               actionList: widget.actionList,
               movieID: widget.movieID,
+              duration: widget.duration,
             )
           ],
         ),

@@ -72,6 +72,26 @@ class _GoogleMapPopupState extends State<GoogleMapPopup> {
                                     builder: (context, markers, child) {
                                       return GoogleMap(
                                           zoomControlsEnabled: false,
+                                          onTap: (value) async {
+                                            marker.value = <MarkerId, Marker>{
+                                              MarkerId('eventLocation'): Marker(
+                                                  markerId:
+                                                      MarkerId('eventLocation'),
+                                                  position: LatLng(
+                                                      value.latitude,
+                                                      value.longitude))
+                                            };
+                                            final GoogleMapController
+                                                controller =
+                                                await _controller.future;
+                                            controller.animateCamera(
+                                                CameraUpdate.newCameraPosition(
+                                                    CameraPosition(
+                                                        target: LatLng(
+                                                            value.latitude,
+                                                            value.longitude),
+                                                        zoom: 16)));
+                                          },
                                           onMapCreated:
                                               (GoogleMapController controller) {
                                             _controller.complete(controller);

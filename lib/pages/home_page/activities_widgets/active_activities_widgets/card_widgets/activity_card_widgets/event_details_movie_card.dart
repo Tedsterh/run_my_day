@@ -39,10 +39,16 @@ class EventMovieDetails extends StatelessWidget {
                         height: 50,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10)),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: Image.network(
-                            state.movie.posterPath,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                              intensity: 1.0,
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(5))),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.network(
+                              state.movie.posterPath,
+                            ),
                           ),
                         ),
                       ),

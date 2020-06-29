@@ -57,6 +57,6 @@ class ActiveActivitiesBloc
 
   Stream<ActiveActivitiesState> _mapEndEarlyToState(EndEarly event) async* {
     _activitiesRepository.endEarly(
-        activityID: event.activityID, endTime: DateTime.now().subtract(Duration(minutes: 2)));
+        activityID: event.activityID, endTime: DateTime.now().subtract(Duration(minutes: 4)));
   }
 }

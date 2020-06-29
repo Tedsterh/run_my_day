@@ -67,6 +67,7 @@ class _StackWidgetState extends State<StackWidget> {
                           actionList: actionList,
                           eventLocation: eventLocation,
                           movieID: movieID,
+                          duration: duration,
                         ),
                         EventActionsAdd(
                           onAdd: () {

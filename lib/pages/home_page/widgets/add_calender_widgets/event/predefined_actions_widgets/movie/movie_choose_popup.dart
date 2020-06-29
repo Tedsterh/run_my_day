@@ -17,6 +17,7 @@ class MovieTimePopup extends StatelessWidget {
   }
 
   final ValueNotifier<int> movieID = ValueNotifier(null);
+  final ValueNotifier<Duration> movieDuration = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +199,8 @@ class MovieTimePopup extends StatelessWidget {
                       children: <Widget>[
                         FlatButton(
                             onPressed: () {
-                              Navigator.of(context).pop(movieID.value);
+                              Navigator.of(context)
+                                  .pop([movieID.value, movieDuration.value]);
                             },
                             child: Text(
                               'Select',
