@@ -10,7 +10,10 @@ class SlidingMenuDrawer extends StatefulWidget {
   final Function(DateTime) changeDate;
 
   const SlidingMenuDrawer(
-      {Key key, this.child, @required this.currentUserModel, @required this.changeDate})
+      {Key key,
+      this.child,
+      @required this.currentUserModel,
+      @required this.changeDate})
       : super(key: key);
 
   static SlidingMenuDrawerState of(BuildContext context) =>
@@ -23,6 +26,7 @@ class SlidingMenuDrawer extends StatefulWidget {
 class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
+  Animation animatedColor;
   bool _canBeDragged = false;
   final double maxSlide = 300.0;
 
@@ -33,6 +37,9 @@ class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
       vsync: this,
       duration: Duration(milliseconds: 250),
     );
+    animatedColor = ColorTween(begin: Color(0xFF7D9DFD), end: Colors.white)
+        .animate(
+            CurvedAnimation(parent: animationController, curve: Curves.ease));
   }
 
   @override
@@ -56,7 +63,7 @@ class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
         animation: animationController,
         builder: (context, _) {
           return Material(
-            color: Colors.blueGrey,
+            color: animatedColor.value,
             child: Stack(
               children: <Widget>[
                 Transform.translate(
@@ -67,10 +74,9 @@ class SlidingMenuDrawerState extends State<SlidingMenuDrawer>
                       ..rotateY(math.pi / 2 * (1 - animationController.value)),
                     alignment: Alignment.centerRight,
                     child: SlidingDrawer(
-                      currentUserModel: widget.currentUserModel,
-                      closeDrawer: toggle,
-                      changeDate: widget.changeDate
-                    ),
+                        currentUserModel: widget.currentUserModel,
+                        closeDrawer: toggle,
+                        changeDate: widget.changeDate),
                   ),
                 ),
                 Transform.translate(
