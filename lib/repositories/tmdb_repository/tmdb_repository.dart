@@ -1,10 +1,9 @@
+import 'package:run_my_lockdown/repositories/api_keys.dart';
 import 'package:tmdb_dart/tmdb_dart.dart';
 
 class TMDbRepository {
-  static final String ***REMOVED*** = '***REMOVED***';
-
   TMDbRepository() {
-    _service = TmdbService(***REMOVED***);
+    _service = TmdbService(tmdbApiKey);
   }
 
   TmdbService _service;

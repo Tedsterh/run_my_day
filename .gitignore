@@ -30,9 +30,10 @@
 .pub/
 /build/
 
-# Firebase authentication files ought not be stored
+# External service authentication/API key details ought not be stored
 android/app/google-services.json
 ios/Runner/GoogleService-Info.plist
+lib/repository/api_keys.dart
 
 # Web related
 lib/generated_plugin_registrant.dart
